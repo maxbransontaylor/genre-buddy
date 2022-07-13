@@ -1,13 +1,13 @@
 //format dates for RAWG url
 //only takes YYYY-MM-DD
-//arg checks for argument "last-week"  in getGames to set last weeks date
+//arg checks for argument "last-month"  in getGames to set last month date
 var formatDates = function (arg) {
   var initial = new Date();
-  if (arg == "last-week") {
+  if (arg == "last-month") {
     var date = new Date(
       initial.getFullYear(),
-      initial.getMonth(),
-      initial.getDate() - 7
+      initial.getMonth() - 1,
+      initial.getDate()
     );
   } else {
     var date = initial;
@@ -18,7 +18,7 @@ var formatDates = function (arg) {
     day = "" + 0 + day;
   }
   //converts possible M to MM
-  var month = date.getMonth();
+  var month = date.getMonth() + 1;
   if (month < 10) {
     month = "" + 0 + month;
   }
@@ -28,17 +28,17 @@ var formatDates = function (arg) {
   return formated;
 };
 var getGames = function (genre) {
-  var lastWeek = formatDates("last-week");
+  var lastMonth = formatDates("last-month");
   var today = formatDates();
-  //gets top rated games from the past week
+  //gets most popular games from the last month
   var apiUrl =
-    "https://api.rawg.io/api/games?page_size=10&tags=" +
+    "https://api.rawg.io/api/games?tags=" +
     genre +
     "&dates=" +
-    lastWeek +
+    lastMonth +
     "," +
     today +
-    "&ordering=-rating&key=d1ca06a37be445e396ab6a2c11ae8516";
+    "&ordering=-added&key=d1ca06a37be445e396ab6a2c11ae8516";
   fetch(apiUrl).then(function (response) {
     response.json().then(function (data) {
       console.log(data);
