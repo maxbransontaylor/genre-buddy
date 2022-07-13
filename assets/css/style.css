@@ -1,3 +1,13 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main{
+    flex: 1 0 auto;
+}
+
 header {
     background-image: url("../images/Dream.jpeg");
     background-size:cover;
@@ -5,6 +15,6 @@ header {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-textarea {
-    color: white;
+.recom{
+    text-align: center;
 }
