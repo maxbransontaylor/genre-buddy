@@ -68,3 +68,35 @@ var displayGames = function (results) {
   }
 };
 getGames("horror");
+
+
+//format for IMDb 
+//basic function to grab genre information from imdb api
+function getMovies (genres) {
+    fetch("https://imdb-api.com/API/AdvancedSearch/k_8usbkevm/?genres=" + genres + "&title="
+    )
+    .then((response) => response.json())
+    .then((data) => this.displayMovies(data))
+}
+//should work once classes are in place I tested on separate build
+function displayMovies(data){
+    for(i=0;i<10;i++){
+  var {title} = data.results[i]
+   document.querySelector(".movieTitle-placeHolder").innerHTML = title
+    const {genres} = data.results[i]
+    document.querySelector(".movieGenres-placeHolder").innerHTML = genres
+    console.log(genres)
+    console.log(title)
+    }
+}
+
+//grabs from searchbar class assuming we will use one 
+function search(){
+    this.getMovies(document.querySelector(".search-bar-placeHolder").value)
+ }
+ //grabs from button class when user inputs genre of choice 
+ document.querySelector(".btn-placeHolder").addEventListener("click", function(){
+    search()
+})
+//placeholder call
+getMovies("Action")
