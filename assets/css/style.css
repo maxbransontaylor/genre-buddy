@@ -1,0 +1,10 @@
+header {
+    background-image: url("../images/Dream.jpeg");
+    background-size:cover;
+    color: white;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+textarea {
+    color: white;
+}
