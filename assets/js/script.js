@@ -41,8 +41,30 @@ var getGames = function (genre) {
     "&ordering=-added&key=d1ca06a37be445e396ab6a2c11ae8516";
   fetch(apiUrl).then(function (response) {
     response.json().then(function (data) {
-      console.log(data);
+      var results = data.results;
+      console.log(results);
+      displayGames(results);
     });
   });
+};
+var displayGames = function (results) {
+  var orderedListEl = document.querySelector("#game-list > ul:first-of-type");
+  for (var i = 0; i < 9; i++) {
+    var name = results[i].name;
+    var platformList = "";
+    for (var n = 0; n < results[i].platforms.length; n++) {
+      if (results[i].platforms[n]) {
+        var newItem = results[i].platforms[n].platform.name;
+        platformList += newItem + " ";
+      } else {
+        break;
+      }
+
+      console.log(newItem);
+    }
+    var listEl = document.createElement("li");
+    listEl.textContent = name + "---" + platformList;
+    orderedListEl.appendChild(listEl);
+  }
 };
 getGames("horror");
