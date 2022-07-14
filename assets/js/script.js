@@ -63,8 +63,30 @@ var displayGames = function (results) {
       console.log(newItem);
     }
     var listEl = document.createElement("li");
-    listEl.textContent = name + "---" + platformList;
+    listEl.classList = "row";
+    listEl.innerHTML =
+      "<img src='" +
+      results[i].background_image +
+      "' class = 'col s4 responsive-img'><span class='col s8'>" +
+      name +
+      "---" +
+      platformList +
+      "</span>";
     orderedListEl.appendChild(listEl);
   }
+};
+var getBooks = function (genre) {
+  const options = {
+    method: "GET",
+    headers: {
+      "X-RapidAPI-Key": "601ae7d21fmsh15dec1ad9dce6bcp18e449jsn35e3fb77e45d",
+      "X-RapidAPI-Host": "hapi-books.p.rapidapi.com",
+    },
+  };
+
+  fetch("https://hapi-books.p.rapidapi.com/week/" + genre, options)
+    .then((response) => response.json())
+    .then((response) => console.log(response))
+    .catch((err) => console.error(err));
 };
 getGames("horror");
