@@ -48,7 +48,7 @@ var getGames = function (genre) {
   });
 };
 var displayGames = function (results) {
-  var orderedListEl = document.querySelector("#game-list > ul:first-of-type");
+  var orderedListEl = document.querySelector("#gameList > ul:first-of-type");
   for (var i = 0; i < 9; i++) {
     var name = results[i].name;
     var platformList = "";
@@ -67,9 +67,9 @@ var displayGames = function (results) {
     listEl.innerHTML =
       "<img src='" +
       results[i].background_image +
-      "' class = 'col s4 responsive-img'><span class='col s8'>" +
+      "' class = 'col s4 circle responsive-img'><span class='col s8'>" +
       name +
-      "---" +
+      "</span><span class='col s8'>" +
       platformList +
       "</span>";
     orderedListEl.appendChild(listEl);
