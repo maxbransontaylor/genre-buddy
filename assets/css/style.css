@@ -21,10 +21,15 @@ header {
     text-align: center;
 }
 
-#movieList{
+#movieList, #gameList, #bookList{
     background-color: rgba(255, 255, 255, .5);
+    
+}
+.input-field{
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 3px;
 }
 
-#gameList {
-    background-color: rgba(255, 255, 255, .5);
+#genre{
+    color: white;
 }

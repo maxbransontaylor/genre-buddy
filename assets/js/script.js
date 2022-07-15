@@ -12,6 +12,7 @@ function getMovies(genres) {
 //should work once classes are in place, I tested on a separate build
 function displayMovies(data) {
   var orderedListEl = document.querySelector("#movieList > ul:first-of-type");
+  orderedListEl.innerHTML = "";
   for (i = 0; i < 10; i++) {
     var title = data.results[i].title;
     var genres = data.results[i].genres;
@@ -68,6 +69,7 @@ var formatDates = function (arg) {
 var getGames = function (genre) {
   var lastMonth = formatDates("last-month");
   var today = formatDates();
+  genre = genre.toLowerCase();
   //gets most popular games from the last month
   var apiUrl =
     "https://api.rawg.io/api/games?tags=" +
@@ -79,14 +81,34 @@ var getGames = function (genre) {
     "&ordering=-added&key=d1ca06a37be445e396ab6a2c11ae8516";
   fetch(apiUrl).then(function (response) {
     response.json().then(function (data) {
+      if (data.count == 0) {
+        var apiUrl =
+          "https://api.rawg.io/api/games?genres=" +
+          genre +
+          "&dates=" +
+          lastMonth +
+          "," +
+          today +
+          "&ordering=-added&key=d1ca06a37be445e396ab6a2c11ae8516";
+        fetch(apiUrl).then(function (response) {
+          response.json().then(function (data) {
+            if (data.count == 0) {
+              //error message
+              return false;
+            }
+            var results = data.results;
+            displayGames(results);
+          });
+        });
+      }
       var results = data.results;
-      console.log(results);
       displayGames(results);
     });
   });
 };
 var displayGames = function (results) {
   var orderedListEl = document.querySelector("#gameList > ul:first-of-type");
+  orderedListEl.innerHTML = "";
   for (var i = 0; i < 9; i++) {
     var name = results[i].name;
     var platformList = "";
@@ -97,8 +119,6 @@ var displayGames = function (results) {
       } else {
         break;
       }
-
-      console.log(newItem);
     }
     var listEl = document.createElement("li");
     listEl.classList = "row";
