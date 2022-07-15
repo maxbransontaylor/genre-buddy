@@ -11,36 +11,31 @@ function getMovies(genres) {
 }
 //should work once classes are in place, I tested on a separate build
 function displayMovies(data) {
+  var orderedListEl = document.querySelector("#movieList > ul:first-of-type");
   for (i = 0; i < 10; i++) {
     var title = data.results[i].title;
-
-    document.querySelector(".titles").innerHTML =
-      data.results[0].title + ", Genre: " + genres;
-    document.querySelector(".titles1").innerHTML =
-      data.results[1].title + ", Genre: " + genres;
-    document.querySelector(".titles2").innerHTML =
-      data.results[2].title + ", Genre: " + genres;
-    document.querySelector(".titles3").innerHTML =
-      data.results[3].title + ", Genre: " + genres;
-    document.querySelector(".titles4").innerHTML =
-      data.results[4].title + ", Genre:" + genres;
     var genres = data.results[i].genres;
-
-    console.log(genres);
-    console.log(title);
+    var listEl = document.createElement("li");
+    listEl.textContent = title + ", Genre:" + genres;
+    orderedListEl.appendChild(listEl);
   }
 }
+
 //
 
 //grabs from searchbar class assuming we will use one
-// function search() {
-//   getMovies(document.querySelector(".search-bar").value);
-// }
+var search = function (event) {
+  var targetEl = event.target;
+  if (event.target.matches(".btn")) {
+    var genre = document.getElementById("genre").value;
+    console.log(genre);
+    getMovies(genre);
+    getGames(genre);
+  }
+};
 // //grabs from button class when user inputs genre of choice
-// document.querySelector(".btn").addEventListener("click", function () {
-//   search();
-// });
-getMovies("Action");
+document.querySelector(".input-field").addEventListener("click", search);
+
 //format dates for RAWG url
 //only takes YYYY-MM-DD
 //arg checks for argument "last-month"  in getGames to set last month date
@@ -132,4 +127,3 @@ var getBooks = function (genre) {
     .then((response) => console.log(response))
     .catch((err) => console.error(err));
 };
-getGames("horror");
