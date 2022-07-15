@@ -5,9 +5,11 @@ function getMovies(genres) {
     "https://imdb-api.com/API/AdvancedSearch/k_8usbkevm/?genres=" +
       genres +
       "&title_type=feature"
-  )
-    .then((response) => response.json())
-    .then((data) => displayMovies(data));
+  ).then(function (response) {
+    response.json().then(function (data) {
+      displayMovies(data), storeItem(genres, "movies", data);
+    });
+  });
 }
 //should work once classes are in place, I tested on a separate build
 function displayMovies(data) {
@@ -98,13 +100,18 @@ var getGames = function (genre) {
             }
             var results = data.results;
             displayGames(results);
+            storeItem(genre, "games", results);
           });
         });
       }
       var results = data.results;
       displayGames(results);
+      storeItem(genre, "games", results);
     });
   });
+};
+var storeItem = function (genre, media, data) {
+  localStorage.setItem(genre + media, JSON.stringify(data));
 };
 var displayGames = function (results) {
   var orderedListEl = document.querySelector("#gameList > ul:first-of-type");
