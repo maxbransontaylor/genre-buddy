@@ -13,6 +13,7 @@ function getMovies(genres) {
 function displayMovies(data) {
   for (i = 0; i < 10; i++) {
     var title = data.results[i].title;
+
     document.querySelector(".titles").innerHTML =
       data.results[0].title + ", Genre: " + genres;
     document.querySelector(".titles1").innerHTML =
@@ -32,13 +33,13 @@ function displayMovies(data) {
 //
 
 //grabs from searchbar class assuming we will use one
-function search() {
-  getMovies(document.querySelector(".search-bar").value);
-}
-//grabs from button class when user inputs genre of choice
-document.querySelector(".btn").addEventListener("click", function () {
-  search();
-});
+// function search() {
+//   getMovies(document.querySelector(".search-bar").value);
+// }
+// //grabs from button class when user inputs genre of choice
+// document.querySelector(".btn").addEventListener("click", function () {
+//   search();
+// });
 getMovies("Action");
 //format dates for RAWG url
 //only takes YYYY-MM-DD

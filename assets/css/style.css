@@ -2,6 +2,8 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    background-image: url("../images/Dream.jpeg");
+    background-size: cover;
 }
 
 main{
@@ -9,7 +11,7 @@ main{
 }
 
 header {
-    background-image: url("../images/Dream.jpeg");
+    /* background-image: url("../images/Dream.jpeg"); */
     background-size:cover;
     color: white;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -17,4 +19,12 @@ header {
 
 .recom{
     text-align: center;
+}
+
+#movieList{
+    background-color: rgba(255, 255, 255, .5);
+}
+
+#gameList {
+    background-color: rgba(255, 255, 255, .5);
 }
