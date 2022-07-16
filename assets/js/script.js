@@ -34,6 +34,7 @@ var search = function (event) {
     console.log(genre);
     getMovies(genre);
     getGames(genre);
+    getBooks(genre);
   }
 };
 // //grabs from button class when user inputs genre of choice
@@ -151,6 +152,19 @@ var getBooks = function (genre) {
 
   fetch("https://hapi-books.p.rapidapi.com/week/" + genre, options)
     .then((response) => response.json())
-    .then((response) => console.log(response))
+    .then((response) => displayBooks(response))
     .catch((err) => console.error(err));
+
 };
+
+function displayBooks(data) {
+  var orderedListEl = document.querySelector("#bookList > ul:first-of-type");
+  orderedListEl.innerHTML = "";
+  for (i = 0; i < 10; i++) {
+    var title = data[i].name;
+    var listEl = document.createElement("li");
+    listEl.textContent = title;
+    orderedListEl.appendChild(listEl);
+  }
+ }
+
