@@ -5,7 +5,9 @@ body {
     background-image: url("../images/Dream.jpeg");
     background-size: cover;
 }
-
+header h1{
+    font-family: 'Fredoka One', sans-serif;
+}
 main{
     flex: 1 0 auto;
 }
@@ -25,6 +27,10 @@ header {
     background-color: rgba(255, 255, 255, .5);
     
 }
+#movieList h3, #gameList h3, #bookList h3{
+    font-weight: bold;
+    font-family: 'Fredoka One', sans-serif;
+}
 .input-field{
     background-color: rgba(0, 0, 0, .5);
     border-radius: 3px;
@@ -33,3 +39,4 @@ header {
 #genre{
     color: white;
 }
+
