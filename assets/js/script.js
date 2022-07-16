@@ -162,7 +162,12 @@ function displayBooks(data) {
   for (i = 0; i < 10; i++) {
     var title = data[i].name;
     var listEl = document.createElement("li");
-    listEl.innerHTML = title + "<a href='" + data[i].url + "'>Goodreads</a>";
+    listEl.innerHTML =
+      title +
+      "  " +
+      "<a href='" +
+      data[i].url +
+      "' target='_blank'git>Goodreads</a>";
     orderedListEl.appendChild(listEl);
   }
 }
