@@ -160,10 +160,10 @@ var getBooks = function (genre) {
 function displayBooks(data) {
   var orderedListEl = document.querySelector("#bookList > ul:first-of-type");
   orderedListEl.innerHTML = "";
-  for (i = 0; i < 10; i++) {
+  for (i = 0; i < 10; i++) 
     var title = data[i].name;
     var listEl = document.createElement("li");
-    listEl.textContent = title;
+    listEl.innerHTML = title + "<a href='"+data[i].url+"'>Goodreads</a>";
     orderedListEl.appendChild(listEl);
   }
  }
