@@ -1,31 +1,3 @@
-//format for IMDb
-//basic function to grab genre information from imdb api
-function getMovies(genres) {
-  fetch(
-    "https://imdb-api.com/API/AdvancedSearch/k_8usbkevm/?genres=" +
-      genres +
-      "&title_type=feature"
-  ).then(function (response) {
-    response.json().then(function (data) {
-      displayMovies(data), storeItem(genres, "movies", data);
-    });
-  });
-}
-//should work once classes are in place, I tested on a separate build
-function displayMovies(data) {
-  var orderedListEl = document.querySelector("#movieList > ul:first-of-type");
-  orderedListEl.innerHTML = "";
-  for (i = 0; i < 10; i++) {
-    var title = data.results[i].title;
-    var genres = data.results[i].genres;
-    var listEl = document.createElement("li");
-    listEl.textContent = title + ", Genre:" + genres;
-    orderedListEl.appendChild(listEl);
-  }
-}
-
-//
-
 //grabs from searchbar class assuming we will use one
 var search = function (event) {
   var targetEl = event.target;
@@ -69,6 +41,7 @@ var formatDates = function (arg) {
   var formated = year + "-" + month + "-" + day;
   return formated;
 };
+
 var getGames = function (genre) {
   var lastMonth = formatDates("last-month");
   var today = formatDates();
@@ -97,6 +70,7 @@ var getGames = function (genre) {
           response.json().then(function (data) {
             if (data.count == 0) {
               //error message
+              genreValidationModal();
               return false;
             }
             var results = data.results;
@@ -111,9 +85,11 @@ var getGames = function (genre) {
     });
   });
 };
+
 var storeItem = function (genre, media, data) {
   localStorage.setItem(genre + media, JSON.stringify(data));
 };
+
 var displayGames = function (results) {
   var orderedListEl = document.querySelector("#gameList > ul:first-of-type");
   orderedListEl.innerHTML = "";
@@ -170,4 +146,64 @@ function displayBooks(data) {
       "' target='_blank'git>Goodreads</a>";
     orderedListEl.appendChild(listEl);
   }
+}
+
+//format for IMDb
+//basic function to grab genre information from imdb api
+function getMovies(genres) {
+  fetch(
+    "https://imdb-api.com/API/AdvancedSearch/k_8usbkevm/?genres=" +
+      genres +
+      "&title_type=feature"
+  ).then(function (response) {
+    response.json().then(function (data) {
+      if (data.count == 0) {
+        //error message
+
+        return false;
+      } else {
+        displayMovies(data), storeItem(genres, "movies", data);
+      }
+    });
+  });
+}
+//should work once classes are in place, I tested on a separate build
+function displayMovies(data) {
+  var orderedListEl = document.querySelector("#movieList > ul:first-of-type");
+  orderedListEl.innerHTML = "";
+  for (i = 0; i < 10; i++) {
+    var title = data.results[i].title;
+    var genres = data.results[i].genres;
+    var listEl = document.createElement("li");
+    listEl.textContent = title + ", Genre:" + genres;
+    orderedListEl.appendChild(listEl);
+  }
+}
+
+function genreValidationModal() {
+  // Get the modal
+  var modal = document.getElementById("myModal");
+
+  // Get the button that opens the modal
+  // var btn = document.getElementById("myBtn");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks on the button, open the modal
+  // function displyModal() {
+  modal.style.display = "block";
+  // }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
 }
