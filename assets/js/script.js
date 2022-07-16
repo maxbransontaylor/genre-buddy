@@ -154,17 +154,15 @@ var getBooks = function (genre) {
     .then((response) => response.json())
     .then((response) => displayBooks(response))
     .catch((err) => console.error(err));
-
 };
 
 function displayBooks(data) {
   var orderedListEl = document.querySelector("#bookList > ul:first-of-type");
   orderedListEl.innerHTML = "";
-  for (i = 0; i < 10; i++) 
+  for (i = 0; i < 10; i++) {
     var title = data[i].name;
     var listEl = document.createElement("li");
-    listEl.innerHTML = title + "<a href='"+data[i].url+"'>Goodreads</a>";
+    listEl.innerHTML = title + "<a href='" + data[i].url + "'>Goodreads</a>";
     orderedListEl.appendChild(listEl);
   }
- }
-
+}
