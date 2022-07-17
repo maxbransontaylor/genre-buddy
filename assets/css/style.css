@@ -4,6 +4,10 @@ body {
   flex-direction: column;
   background-image: url("../images/Dream.jpeg");
   background-size: cover;
+  background-position: center;
+  transition-property: background;
+  transition-duration: 2s;
+  transition-timing-function: linear;
 }
 
 header h1 {

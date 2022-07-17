@@ -216,3 +216,17 @@ function genreValidationModal() {
     }
   };
 }
+var backgroundTransition = function () {
+  var urls = ["Action-img-2.jpg", "Horror-img-1.jpg", "Mystery-img-1.jpg", "Scifi-img-1.jpg", "Action-img-3.jpg", "fantasy-img-2.jpg", "Horror-img-2.jpg", "Mystery-img-2.jpg", "Scifi-img-2.jpg", "fantasy-img-4.jpg", "Horror-img-3.jpg", "Scifi-img-3.jpg", "Action-img-4.jpg", "Horror-img-4.jpg", "Scifi-img-4.jpg"]
+  var index = 0;
+  setInterval(function () {
+    if (index == urls.length) {
+      index = 0;
+    }
+    console.log("loop")
+    document.body.style.backgroundImage = "url('./assets/images/" + urls[index] + "')"
+
+    index++
+  }, 25000)
+}
+backgroundTransition();
