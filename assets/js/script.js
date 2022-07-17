@@ -72,20 +72,22 @@ var getGames = function (genre) {
               //error message
               genreValidationModal();
               return false;
+            } else {
+              //getMovies now called here to validate genre
+              getMovies(genre);
+              var results = data.results;
+              displayGames(results);
+              storeItem(genre, "games", results);
             }
-            //getMovies now called here to validate genre
-            getMovies(genre);
-            var results = data.results;
-            displayGames(results);
-            storeItem(genre, "games", results);
           });
         });
+      } else {
+        //getMovies now called here to validate genre
+        getMovies(genre);
+        var results = data.results;
+        displayGames(results);
+        storeItem(genre, "games", results);
       }
-      //getMovies now called here to validate genre
-      getMovies(genre);
-      var results = data.results;
-      displayGames(results);
-      storeItem(genre, "games", results);
     });
   });
 };
@@ -172,8 +174,8 @@ function displayBooks(data) {
 function getMovies(genres) {
   fetch(
     "https://imdb-api.com/API/AdvancedSearch/k_8usbkevm/?genres=" +
-      genres +
-      "&title_type=feature"
+    genres +
+    "&title_type=feature"
   ).then(function (response) {
     response.json().then(function (data) {
       if (data.count == 0) {
@@ -261,3 +263,17 @@ var buttonGenre = function (event) {
 
 genreButtonEl.addEventListener("click", buttonGenre);
 loadHistory();
+var backgroundTransition = function () {
+  var urls = ["Action-img-2.jpg", "Horror-img-1.jpg", "Mystery-img-1.jpg", "Scifi-img-1.jpg", "Action-img-3.jpg", "fantasy-img-2.jpg", "Horror-img-2.jpg", "Mystery-img-2.jpg", "Scifi-img-2.jpg", "fantasy-img-4.jpg", "Horror-img-3.jpg", "Scifi-img-3.jpg", "Action-img-4.jpg", "Horror-img-4.jpg", "Scifi-img-4.jpg"]
+  var index = 0;
+  setInterval(function () {
+    if (index == urls.length) {
+      index = 0;
+    }
+    console.log("loop")
+    document.body.style.backgroundImage = "url('./assets/images/" + urls[index] + "')"
+
+    index++
+  }, 3000)
+}
+backgroundTransition();
