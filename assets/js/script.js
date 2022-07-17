@@ -227,6 +227,6 @@ var backgroundTransition = function () {
     document.body.style.backgroundImage = "url('./assets/images/" + urls[index] + "')"
 
     index++
-  }, 25000)
+  }, 3000)
 }
 backgroundTransition();
