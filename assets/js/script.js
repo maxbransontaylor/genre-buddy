@@ -96,8 +96,6 @@ var getGames = function (genre) {
 //   localStorage.setItem(genre + media, JSON.stringify(data));
 // };
 
-
-
 var displayGames = function (results) {
   var orderedListEl = document.querySelector("#gameList > ul:first-of-type");
   orderedListEl.innerHTML = "";
@@ -225,11 +223,11 @@ function genreValidationModal() {
 var searchHistory = [];
 
 var storeItem = function (genre, media, data) {
-  localStorage.setItem(genre + media, JSON.stringify(data))
-  if (searchHistory.indexOf(genre) == -1) {
-    searchHistory.push(genre);
+  localStorage.setItem(genre + media, JSON.stringify(data));
+  if (searchHistory.indexOf(genre.toLowerCase) == -1) {
+    searchHistory.push(genre + media);
     localStorage.setItem("genreArr", JSON.stringify(searchHistory));
-    createButtonEl(genre);
+    createButtonEl(genre + media);
   }
 };
 
@@ -244,17 +242,14 @@ var loadHistory = function () {
     }
   }
   console.log(searchHistory);
-
 };
 
 var createButtonEl = function (genre) {
-
   var genreButton = document.createElement("button");
-  genreButton.classList = "btn cyan"
+  genreButton.classList = "btn cyan";
   genreButton.textContent = genre;
   genreButton.setAttribute("data-genre", genre);
   genreButtonEl.appendChild(genreButton);
-
 };
 
 var buttonGenre = function (event) {
@@ -262,9 +257,9 @@ var buttonGenre = function (event) {
   var button = event.target;
   if (button.matches(".btn")) {
     var genre = button.getAttribute("data-genre");
-    console.log(genre)
+    console.log(genre);
     displayGames(JSON.parse(localStorage.getItem(genre + "games")));
-    displayMovies(JSON.parse(localStorage.getItem(genre+ "movies")));
+    displayMovies(JSON.parse(localStorage.getItem(genre + "movies")));
     displayBooks(JSON.parse(localStorage.getItem(genre + "books")));
     //displayMovies(JSON.parse(localStorage.getItem(genre + "movies")));
   }
@@ -273,16 +268,33 @@ var buttonGenre = function (event) {
 genreButtonEl.addEventListener("click", buttonGenre);
 loadHistory();
 var backgroundTransition = function () {
-  var urls = ["Action-img-2.jpg", "Horror-img-1.jpg", "Mystery-img-1.jpg", "Scifi-img-1.jpg", "Action-img-3.jpg", "fantasy-img-2.jpg", "Horror-img-2.jpg", "Mystery-img-2.jpg", "Scifi-img-2.jpg", "fantasy-img-4.jpg", "Horror-img-3.jpg", "Scifi-img-3.jpg", "Action-img-4.jpg", "Horror-img-4.jpg", "Scifi-img-4.jpg"]
+  var urls = [
+    "Action-img-2.jpg",
+    "Horror-img-1.jpg",
+    "Mystery-img-1.jpg",
+    "Scifi-img-1.jpg",
+    "Action-img-3.jpg",
+    "fantasy-img-2.jpg",
+    "Horror-img-2.jpg",
+    "Mystery-img-2.jpg",
+    "Scifi-img-2.jpg",
+    "fantasy-img-4.jpg",
+    "Horror-img-3.jpg",
+    "Scifi-img-3.jpg",
+    "Action-img-4.jpg",
+    "Horror-img-4.jpg",
+    "Scifi-img-4.jpg",
+  ];
   var index = 0;
   setInterval(function () {
     if (index == urls.length) {
       index = 0;
     }
 
-    document.body.style.backgroundImage = "url('./assets/images/" + urls[index] + "')"
+    document.body.style.backgroundImage =
+      "url('./assets/images/" + urls[index] + "')";
 
-    index++
-  }, 30000)
-}
+    index++;
+  }, 30000);
+};
 backgroundTransition();
