@@ -138,7 +138,7 @@ var getBooks = function (genre) {
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": "e1a7805621msh007883c822e3da0p1e2f44jsn5f89d4d71451",
+      "x-rapidAPI-Key": "e1a7805621msh007883c822e3da0p1e2f44jsn5f89d4d71451",
       "X-RapidAPI-Host": "hapi-books.p.rapidapi.com",
     },
   };
@@ -158,10 +158,13 @@ function displayBooks(data) {
   orderedListEl.innerHTML = "";
   for (i = 0; i < 10; i++) {
     var title = data[i].name;
+    var img = data[i].cover
     var listEl = document.createElement("li");
+    
     listEl.innerHTML =
       title +
       "  " +
+      img +
       "<a href='" +
       data[i].url +
       "' target='_blank'git>Goodreads</a>";
@@ -171,6 +174,7 @@ function displayBooks(data) {
 
 //format for IMDb
 //basic function to grab genre information from imdb api
+//only 100 requests a day so be careful of that
 function getMovies(genres) {
   fetch(
     "https://imdb-api.com/API/AdvancedSearch/k_8usbkevm/?genres=" +
@@ -189,15 +193,16 @@ function getMovies(genres) {
     });
   });
 }
-//should work once classes are in place, I tested on a separate build
+
 function displayMovies(data) {
   var orderedListEl = document.querySelector("#movieList > ul:first-of-type");
   orderedListEl.innerHTML = "";
   for (i = 0; i < 10; i++) {
     var title = data.results[i].title;
     var genres = data.results[i].genres;
+    var img = data.results[i].image
     var listEl = document.createElement("li");
-    listEl.textContent = title + ", Genre:" + genres;
+    listEl.textContent = title + ", Genre:" + genres + img;
     orderedListEl.appendChild(listEl);
   }
 }
