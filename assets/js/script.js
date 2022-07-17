@@ -264,6 +264,7 @@ var buttonGenre = function (event) {
     var genre = button.getAttribute("data-genre");
     console.log(genre)
     displayGames(JSON.parse(localStorage.getItem(genre + "games")));
+    displayMovies(JSON.parse(localStorage.getItem(genre+ "movies")));
     displayBooks(JSON.parse(localStorage.getItem(genre + "books")));
     //displayMovies(JSON.parse(localStorage.getItem(genre + "movies")));
   }
