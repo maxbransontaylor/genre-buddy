@@ -6,7 +6,7 @@ body {
   background-size: cover;
   background-position: center;
   transition-property: background;
-  transition-duration: 2s;
+  transition-duration: 4s;
   transition-timing-function: linear;
 }
 
@@ -149,7 +149,7 @@ header {
   }
 }
 
+
 button {
-  background-color: rgb(13, 226, 226);
   margin: 10px;
 }

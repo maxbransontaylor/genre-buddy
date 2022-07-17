@@ -96,16 +96,7 @@ var getGames = function (genre) {
 //   localStorage.setItem(genre + media, JSON.stringify(data));
 // };
 
-var searchHistory = [];
 
-var storeItem = function (genre) {
-  if (searchHistory.indexOf(genre) !== -1) {
-    return;
-  }
-  var genreArr = JSON.parse(localStorage.getItem("genreArr")) || [];
-  genreArr.push(genre);
-  localStorage.setItem("genreArr", JSON.stringify(genreArr));
-};
 
 var displayGames = function (results) {
   var orderedListEl = document.querySelector("#gameList > ul:first-of-type");
@@ -146,7 +137,7 @@ var getBooks = function (genre) {
   fetch("https://hapi-books.p.rapidapi.com/week/" + genre, options).then(
     function (response) {
       response.json().then(function (data) {
-        // storeItem(genre, "books", data);
+        storeItem(genre, "books", data);
         displayBooks(data);
       });
     }
@@ -174,8 +165,8 @@ function displayBooks(data) {
 function getMovies(genres) {
   fetch(
     "https://imdb-api.com/API/AdvancedSearch/k_8usbkevm/?genres=" +
-      genres +
-      "&title_type=feature"
+    genres +
+    "&title_type=feature"
   ).then(function (response) {
     response.json().then(function (data) {
       if (data.count == 0) {
@@ -184,7 +175,7 @@ function getMovies(genres) {
         return false;
       } else {
         displayMovies(data);
-        // storeItem(genres, "movies", data);
+        storeItem(genres, "movies", data);
       }
     });
   });
@@ -229,36 +220,51 @@ function genreValidationModal() {
     }
   };
 }
+var searchHistory = [];
+
+var storeItem = function (genre, media, data) {
+  localStorage.setItem(genre + media, JSON.stringify(data))
+  if (searchHistory.indexOf(genre) == -1) {
+    searchHistory.push(genre);
+    localStorage.setItem("genreArr", JSON.stringify(searchHistory));
+    createButtonEl(genre);
+  }
+};
 
 var genreButtonEl = document.querySelector("#history-button");
 
 var loadHistory = function () {
-  var savedGenre = localStorage.getItem("genreArr");
+  var savedGenre = JSON.parse(localStorage.getItem("genreArr"));
   if (savedGenre) {
-    searchHistory = JSON.parse(savedGenre);
+    searchHistory = savedGenre;
+    for (var i = 0; i < searchHistory.length; i++) {
+      createButtonEl(searchHistory[i]);
+    }
   }
   console.log(searchHistory);
-  createButtonEl();
+
 };
 
-var createButtonEl = function () {
-  for (var i = 0; i <= searchHistory.length - 1; i++) {
-    var genreButton = document.createElement("button");
-    genreButton.textContent = searchHistory[i];
-    genreButton.setAttribute("data-genre", searchHistory[i]);
-    console.log(i);
-    genreButtonEl.appendChild(genreButton);
-  }
+var createButtonEl = function (genre) {
+
+  var genreButton = document.createElement("button");
+  genreButton.classList = "btn cyan"
+  genreButton.textContent = genre;
+  genreButton.setAttribute("data-genre", genre);
+  genreButtonEl.appendChild(genreButton);
+
 };
 
 var buttonGenre = function (event) {
   console.log("clicked history");
   var button = event.target;
-  var buttonclick = button.getAttribute("data-genre");
-  console.log(buttonclick);
-  getMovies(buttonclick);
-  getGames(buttonclick);
-  getBooks(buttonclick);
+  if (button.matches(".btn")) {
+    var genre = button.getAttribute("data-genre");
+    console.log(genre)
+    displayGames(JSON.parse(localStorage.getItem(genre + "games")));
+    displayBooks(JSON.parse(localStorage.getItem(genre + "books")));
+    //displayMovies(JSON.parse(localStorage.getItem(genre + "movies")));
+  }
 };
 
 genreButtonEl.addEventListener("click", buttonGenre);
@@ -270,10 +276,10 @@ var backgroundTransition = function () {
     if (index == urls.length) {
       index = 0;
     }
-    console.log("loop")
+
     document.body.style.backgroundImage = "url('./assets/images/" + urls[index] + "')"
 
     index++
-  }, 3000)
+  }, 30000)
 }
 backgroundTransition();
