@@ -1,6 +1,6 @@
 //grabs from searchbar class assuming we will use one
 var search = function (event) {
-  var targetEl = event.target;
+
   if (event.target.matches(".btn")) {
     var genre = document.getElementById("genre").value;
     genre = genre.toLowerCase()
