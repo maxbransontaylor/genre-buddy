@@ -90,8 +90,19 @@ var getGames = function (genre) {
   });
 };
 
-var storeItem = function (genre, media, data) {
-  localStorage.setItem(genre + media, JSON.stringify(data));
+// var storeItem = function (genre, media, data) {
+//   localStorage.setItem(genre + media, JSON.stringify(data));
+// };
+
+var searchHistory = [];
+
+var storeItem = function (genre) {
+  if (searchHistory.indexOf(genre) !== -1) {
+    return;
+  }
+  var genreArr = JSON.parse(localStorage.getItem("genreArr")) || [];
+  genreArr.push(genre);
+  localStorage.setItem("genreArr", JSON.stringify(genreArr));
 };
 
 var displayGames = function (results) {
@@ -130,13 +141,14 @@ var getBooks = function (genre) {
     },
   };
 
-  fetch("https://hapi-books.p.rapidapi.com/week/" + genre, options)
-    .then(function (response) {
+  fetch("https://hapi-books.p.rapidapi.com/week/" + genre, options).then(
+    function (response) {
       response.json().then(function (data) {
-        storeItem(genre, "books", data);
+        // storeItem(genre, "books", data);
         displayBooks(data);
-      })
-    })
+      });
+    }
+  );
 };
 
 function displayBooks(data) {
@@ -160,8 +172,8 @@ function displayBooks(data) {
 function getMovies(genres) {
   fetch(
     "https://imdb-api.com/API/AdvancedSearch/k_8usbkevm/?genres=" +
-    genres +
-    "&title_type=feature"
+      genres +
+      "&title_type=feature"
   ).then(function (response) {
     response.json().then(function (data) {
       if (data.count == 0) {
@@ -169,7 +181,8 @@ function getMovies(genres) {
 
         return false;
       } else {
-        displayMovies(data), storeItem(genres, "movies", data);
+        displayMovies(data);
+        // storeItem(genres, "movies", data);
       }
     });
   });
@@ -216,9 +229,9 @@ function genreValidationModal() {
 }
 
 var genreButtonEl = document.querySelector("#history-button");
-var searchHistory = [];
+
 var loadHistory = function () {
-  var savedGenre = localStorage.getItem("genre", "media", "data");
+  var savedGenre = localStorage.getItem("genreArr");
   if (savedGenre) {
     searchHistory = JSON.parse(savedGenre);
   }
@@ -241,9 +254,10 @@ var buttonGenre = function (event) {
   var button = event.target;
   var buttonclick = button.getAttribute("data-genre");
   console.log(buttonclick);
-  // getMovies(genre);
-  // getGames(genre);
-  // getBooks(genre);
+  getMovies(genre);
+  getGames(genre);
+  getBooks(genre);
 };
 
+genreButtonEl.addEventListener("click", buttonGenre);
 loadHistory();
