@@ -12,6 +12,7 @@ body {
 
 header h1 {
   font-family: 'Fredoka One', sans-serif;
+  mix-blend-mode: difference;
 }
 
 main {
