@@ -114,3 +114,8 @@ header {
     from {top: -300px; opacity: 0}
     to {top: 0; opacity: 1}
   }
+
+  button {
+    background-color: lightgray;
+    margin: 10px;
+}

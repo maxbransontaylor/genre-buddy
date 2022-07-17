@@ -215,3 +215,36 @@ function genreValidationModal() {
     }
   };
 }
+
+var genreButtonEl = document.querySelector("#history-button");
+var searchHistory = [];
+var loadHistory = function () {
+  var savedGenre = localStorage.getItem("genre", "media", "data");
+  if (savedGenre) {
+    searchHistory = JSON.parse(savedGenre);
+  }
+  console.log(searchHistory);
+  createButtonEl();
+};
+
+var createButtonEl = function () {
+  for (var i = 0; i <= searchHistory.length - 1; i++) {
+    var genreButton = document.createElement("button");
+    genreButton.textContent = searchHistory[i];
+    genreButton.setAttribute("data-genre", searchHistory[i]);
+    console.log(i);
+    genreButtonEl.appendChild(genreButton);
+  }
+};
+
+var buttonGenre = function (event) {
+  console.log("clicked history");
+  var button = event.target;
+  var buttonclick = button.getAttribute("data-genre");
+  console.log(buttonclick);
+  // getMovies(genre);
+  // getGames(genre);
+  // getBooks(genre);
+};
+
+loadHistory();
