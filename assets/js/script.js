@@ -254,9 +254,9 @@ var buttonGenre = function (event) {
   var button = event.target;
   var buttonclick = button.getAttribute("data-genre");
   console.log(buttonclick);
-  getMovies(genre);
-  getGames(genre);
-  getBooks(genre);
+  getMovies(buttonclick);
+  getGames(buttonclick);
+  getBooks(buttonclick);
 };
 
 genreButtonEl.addEventListener("click", buttonGenre);
