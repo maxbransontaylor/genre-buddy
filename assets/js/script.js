@@ -166,9 +166,9 @@ function displayBooks(data) {
 //basic function to grab genre information from imdb api
 function getMovies(genres) {
   fetch(
-    "https://imdb-api.com/API/AdvancedSearch/k_8usbkevm/?genres=" +
-    genres +
-    "&title_type=feature"
+    "https://imdb-api.com/API/AdvancedSearch/k_y6c0caxw/?genres=" +
+      genres +
+      "&title_type=feature"
   ).then(function (response) {
     response.json().then(function (data) {
       if (data.count == 0) {
