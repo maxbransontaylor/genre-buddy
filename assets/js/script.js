@@ -3,6 +3,7 @@ var search = function (event) {
   var targetEl = event.target;
   if (event.target.matches(".btn")) {
     var genre = document.getElementById("genre").value;
+    genre = genre.toLowerCase()
     console.log(genre);
     //getMovies now called in getGames to validate genre
     getGames(genre);
@@ -165,8 +166,8 @@ function displayBooks(data) {
 function getMovies(genres) {
   fetch(
     "https://imdb-api.com/API/AdvancedSearch/k_y6c0caxw/?genres=" +
-      genres +
-      "&title_type=feature"
+    genres +
+    "&title_type=feature"
   ).then(function (response) {
     response.json().then(function (data) {
       if (data.count == 0) {
@@ -224,10 +225,10 @@ var searchHistory = [];
 
 var storeItem = function (genre, media, data) {
   localStorage.setItem(genre + media, JSON.stringify(data));
-  if (searchHistory.indexOf(genre.toLowerCase) == -1) {
-    searchHistory.push(genre + media);
+  if (searchHistory.indexOf(genre.toLowerCase()) == -1) {
+    searchHistory.push(genre);
     localStorage.setItem("genreArr", JSON.stringify(searchHistory));
-    createButtonEl(genre + media);
+    createButtonEl(genre);
   }
 };
 
