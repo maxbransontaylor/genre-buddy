@@ -130,13 +130,14 @@ var getBooks = function (genre) {
     },
   };
 
-  fetch("https://hapi-books.p.rapidapi.com/week/" + genre, options)
-    .then(function (response) {
+  fetch("https://hapi-books.p.rapidapi.com/week/" + genre, options).then(
+    function (response) {
       response.json().then(function (data) {
         storeItem(genre, "books", data);
         displayBooks(data);
-      })
-    })
+      });
+    }
+  );
 };
 
 function displayBooks(data) {
@@ -160,8 +161,8 @@ function displayBooks(data) {
 function getMovies(genres) {
   fetch(
     "https://imdb-api.com/API/AdvancedSearch/k_8usbkevm/?genres=" +
-    genres +
-    "&title_type=feature"
+      genres +
+      "&title_type=feature"
   ).then(function (response) {
     response.json().then(function (data) {
       if (data.count == 0) {
