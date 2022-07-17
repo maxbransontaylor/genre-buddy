@@ -72,26 +72,39 @@ var getGames = function (genre) {
               //error message
               genreValidationModal();
               return false;
+            } else {
+              //getMovies now called here to validate genre
+              getMovies(genre);
+              var results = data.results;
+              displayGames(results);
+              storeItem(genre, "games", results);
             }
-            //getMovies now called here to validate genre
-            getMovies(genre);
-            var results = data.results;
-            displayGames(results);
-            storeItem(genre, "games", results);
           });
         });
+      } else {
+        //getMovies now called here to validate genre
+        getMovies(genre);
+        var results = data.results;
+        displayGames(results);
+        storeItem(genre, "games", results);
       }
-      //getMovies now called here to validate genre
-      getMovies(genre);
-      var results = data.results;
-      displayGames(results);
-      storeItem(genre, "games", results);
     });
   });
 };
 
-var storeItem = function (genre, media, data) {
-  localStorage.setItem(genre + media, JSON.stringify(data));
+// var storeItem = function (genre, media, data) {
+//   localStorage.setItem(genre + media, JSON.stringify(data));
+// };
+
+var searchHistory = [];
+
+var storeItem = function (genre) {
+  if (searchHistory.indexOf(genre) !== -1) {
+    return;
+  }
+  var genreArr = JSON.parse(localStorage.getItem("genreArr")) || [];
+  genreArr.push(genre);
+  localStorage.setItem("genreArr", JSON.stringify(genreArr));
 };
 
 var displayGames = function (results) {
@@ -133,7 +146,7 @@ var getBooks = function (genre) {
   fetch("https://hapi-books.p.rapidapi.com/week/" + genre, options).then(
     function (response) {
       response.json().then(function (data) {
-        storeItem(genre, "books", data);
+        // storeItem(genre, "books", data);
         displayBooks(data);
       });
     }
@@ -170,7 +183,8 @@ function getMovies(genres) {
 
         return false;
       } else {
-        displayMovies(data), storeItem(genres, "movies", data);
+        displayMovies(data);
+        // storeItem(genres, "movies", data);
       }
     });
   });
@@ -217,9 +231,9 @@ function genreValidationModal() {
 }
 
 var genreButtonEl = document.querySelector("#history-button");
-var searchHistory = [];
+
 var loadHistory = function () {
-  var savedGenre = localStorage.getItem("genre", "media", "data");
+  var savedGenre = localStorage.getItem("genreArr");
   if (savedGenre) {
     searchHistory = JSON.parse(savedGenre);
   }
@@ -242,9 +256,24 @@ var buttonGenre = function (event) {
   var button = event.target;
   var buttonclick = button.getAttribute("data-genre");
   console.log(buttonclick);
-  // getMovies(genre);
-  // getGames(genre);
-  // getBooks(genre);
+  getMovies(buttonclick);
+  getGames(buttonclick);
+  getBooks(buttonclick);
 };
 
+genreButtonEl.addEventListener("click", buttonGenre);
 loadHistory();
+var backgroundTransition = function () {
+  var urls = ["Action-img-2.jpg", "Horror-img-1.jpg", "Mystery-img-1.jpg", "Scifi-img-1.jpg", "Action-img-3.jpg", "fantasy-img-2.jpg", "Horror-img-2.jpg", "Mystery-img-2.jpg", "Scifi-img-2.jpg", "fantasy-img-4.jpg", "Horror-img-3.jpg", "Scifi-img-3.jpg", "Action-img-4.jpg", "Horror-img-4.jpg", "Scifi-img-4.jpg"]
+  var index = 0;
+  setInterval(function () {
+    if (index == urls.length) {
+      index = 0;
+    }
+    console.log("loop")
+    document.body.style.backgroundImage = "url('./assets/images/" + urls[index] + "')"
+
+    index++
+  }, 3000)
+}
+backgroundTransition();
