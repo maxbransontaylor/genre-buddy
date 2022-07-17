@@ -138,7 +138,7 @@ var getBooks = function (genre) {
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": "601ae7d21fmsh15dec1ad9dce6bcp18e449jsn35e3fb77e45d",
+      "X-RapidAPI-Key": "e1a7805621msh007883c822e3da0p1e2f44jsn5f89d4d71451",
       "X-RapidAPI-Host": "hapi-books.p.rapidapi.com",
     },
   };
@@ -174,8 +174,8 @@ function displayBooks(data) {
 function getMovies(genres) {
   fetch(
     "https://imdb-api.com/API/AdvancedSearch/k_8usbkevm/?genres=" +
-    genres +
-    "&title_type=feature"
+      genres +
+      "&title_type=feature"
   ).then(function (response) {
     response.json().then(function (data) {
       if (data.count == 0) {
