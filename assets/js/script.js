@@ -4,7 +4,7 @@ var search = function (event) {
   if (event.target.matches(".btn")) {
     var genre = document.getElementById("genre").value;
     console.log(genre);
-    getMovies(genre);
+    //getMovies now called in getGames to validate genre
     getGames(genre);
     getBooks(genre);
   }
@@ -73,12 +73,16 @@ var getGames = function (genre) {
               genreValidationModal();
               return false;
             }
+            //getMovies now called here to validate genre
+            getMovies(genre);
             var results = data.results;
             displayGames(results);
             storeItem(genre, "games", results);
           });
         });
       }
+      //getMovies now called here to validate genre
+      getMovies(genre);
       var results = data.results;
       displayGames(results);
       storeItem(genre, "games", results);
@@ -127,9 +131,12 @@ var getBooks = function (genre) {
   };
 
   fetch("https://hapi-books.p.rapidapi.com/week/" + genre, options)
-    .then((response) => response.json())
-    .then((response) => displayBooks(response))
-    .catch((err) => console.error(err));
+    .then(function (response) {
+      response.json().then(function (data) {
+        storeItem(genre, "books", data);
+        displayBooks(data);
+      })
+    })
 };
 
 function displayBooks(data) {
@@ -153,8 +160,8 @@ function displayBooks(data) {
 function getMovies(genres) {
   fetch(
     "https://imdb-api.com/API/AdvancedSearch/k_8usbkevm/?genres=" +
-      genres +
-      "&title_type=feature"
+    genres +
+    "&title_type=feature"
   ).then(function (response) {
     response.json().then(function (data) {
       if (data.count == 0) {
