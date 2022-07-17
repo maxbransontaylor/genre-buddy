@@ -72,20 +72,22 @@ var getGames = function (genre) {
               //error message
               genreValidationModal();
               return false;
+            } else {
+              //getMovies now called here to validate genre
+              getMovies(genre);
+              var results = data.results;
+              displayGames(results);
+              storeItem(genre, "games", results);
             }
-            //getMovies now called here to validate genre
-            getMovies(genre);
-            var results = data.results;
-            displayGames(results);
-            storeItem(genre, "games", results);
           });
         });
+      } else {
+        //getMovies now called here to validate genre
+        getMovies(genre);
+        var results = data.results;
+        displayGames(results);
+        storeItem(genre, "games", results);
       }
-      //getMovies now called here to validate genre
-      getMovies(genre);
-      var results = data.results;
-      displayGames(results);
-      storeItem(genre, "games", results);
     });
   });
 };

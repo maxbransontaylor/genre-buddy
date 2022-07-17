@@ -1,116 +1,143 @@
 body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    background-image: url("../images/Dream.jpeg");
-    background-size: cover;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background-image: url("../images/Dream.jpeg");
+  background-size: cover;
 }
-header h1{
-    font-family: 'Fredoka One', sans-serif;
+
+header h1 {
+  font-family: 'Fredoka One', sans-serif;
 }
-main{
-    flex: 1 0 auto;
+
+main {
+  flex: 1 0 auto;
 }
 
 header {
-    /* background-image: url("../images/Dream.jpeg"); */
-    background-size:cover;
-    color: white;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  /* background-image: url("../images/Dream.jpeg"); */
+  background-size: cover;
+  color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-.recom{
-    text-align: center;
+.recom {
+  text-align: center;
 }
 
-#movieList, #gameList, #bookList{
-    background-color: rgba(255, 255, 255, .5);
-    
-}
-#movieList h3, #gameList h3, #bookList h3{
-    font-weight: bold;
-    font-family: 'Fredoka One', sans-serif;
-}
-.input-field{
-    background-color: rgba(0, 0, 0, .5);
-    border-radius: 3px;
+#movieList,
+#gameList,
+#bookList {
+  background-color: rgba(255, 255, 255, .5);
+
 }
 
-#genre{
-    color: white;
+#movieList h3,
+#gameList h3,
+#bookList h3 {
+  font-weight: bold;
+  font-family: 'Fredoka One', sans-serif;
+}
+
+.input-field {
+  background-color: rgba(0, 0, 0, .5);
+  border-radius: 3px;
+}
+
+#genre {
+  color: white;
 }
 
 /* The Modal (background) */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 50%; /* Full width */
-    height: 50%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
-  
-  /* Modal Content/Box */
-  .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-  }
-  
-  /* The Close Button */
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-  }
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: auto;
+  /* Full width */
+  height: auto;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
 
-  /* Modal Header */
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Modal Header */
 .modal-header {
-    padding: 2px 16px;
-    background-color: red;
-    color: white;
-  }
-  
-  /* Modal Body */
-  .modal-body {padding: 2px 16px;}
-  
-  /* Modal Footer
+  padding: 2px 16px;
+  background-color: red;
+  color: white;
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 2px 16px;
+}
+
+/* Modal Footer
   .modal-footer {
     padding: 2px 16px;
     background-color: red;
     color: black;
   } */
-  
-  /* Modal Content */
-  .modal-content {
-    position: relative;
-    background-color: #fefefe;
-    color: black;
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    width: 80%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    animation-name: animatetop;
-    animation-duration: 0.4s
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  color: black;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  width: 80%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* Add Animation */
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0
   }
-  
-  /* Add Animation */
-  @keyframes animatetop {
-    from {top: -300px; opacity: 0}
-    to {top: 0; opacity: 1}
+
+  to {
+    top: 0;
+    opacity: 1
   }
+}
