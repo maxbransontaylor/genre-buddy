@@ -137,8 +137,10 @@ var getBooks = function (genre) {
   fetch("https://hapi-books.p.rapidapi.com/week/" + genre, options).then(
     function (response) {
       response.json().then(function (data) {
-        storeItem(genre, "books", data);
-        displayBooks(data);
+        if (data.length) {
+          storeItem(genre, "books", data);
+          displayBooks(data);
+        }
       });
     }
   );
