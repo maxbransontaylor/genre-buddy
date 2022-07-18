@@ -193,6 +193,7 @@ function displayBooks(data) {
 
 //format for IMDb
 //basic function to grab genre information from imdb api
+//only 100 requests a day so be careful of that
 function getMovies(genres) {
   fetch(
     "https://imdb-api.com/API/AdvancedSearch/k_y6c0caxw/?genres=" +
