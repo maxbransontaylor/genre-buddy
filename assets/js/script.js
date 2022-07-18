@@ -118,6 +118,7 @@ var displayGames = function (results) {
     }
     var listEl = document.createElement("li");
     listEl.classList.add("row", "collection-item", "avatar");
+    listEl.style.fontWeight = "bold"
     listEl.innerHTML =
       "<img src='" +
       results[i].background_image +
@@ -166,6 +167,7 @@ function displayBooks(data) {
     var title = data[i].name;
     var listEl = document.createElement("li");
     listEl.classList.add("row", "collection-item", "avatar");
+    listEl.style.fontWeight = "bold"
     listEl.innerHTML =
       "<img src='" +
       data[i].cover +
@@ -215,6 +217,7 @@ function displayMovies(data) {
     var title = data.results[i].title;
     var listEl = document.createElement("li");
     listEl.classList.add("row", "collection-item", "avatar");
+    listEl.style.fontWeight = "bold"
     var imdb = data.results[i].imDbRating;
     if (!imdb) {
       imdb = "Not available"
