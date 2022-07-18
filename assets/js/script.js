@@ -133,7 +133,7 @@ var getBooks = function (genre) {
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": "e1a7805621msh007883c822e3da0p1e2f44jsn5f89d4d71451",
+      "X-RapidAPI-Key": "7326db8357msh61c312a20e75e92p14b571jsn2c1250e73a41",
       "X-RapidAPI-Host": "hapi-books.p.rapidapi.com",
     },
   };
@@ -168,11 +168,10 @@ function displayBooks(data) {
     listEl.classList.add("row", "collection-item", "avatar");
     listEl.innerHTML =
       "<img src='" +
-      //this image source will likely have to be changed, waiting to refresh API key
       data[i].cover +
       "' class = 'circle responsive-img'><span class='col s8'>" +
       title +
-      "</span>" +
+      "</span>" + 
       "<a href='" +
       data[i].url +
       "' target='_blank'git>Goodreads</a>";
@@ -202,7 +201,6 @@ function getMovies(genres) {
 }
 //should work once classes are in place, I tested on a separate build
 function displayMovies(data) {
-  console.log(data.results);
   //check to see if a list element already exists, and of so, delete it before creating another one
   var elementExists = document.getElementById("listOfMovies");
   if (elementExists) {
