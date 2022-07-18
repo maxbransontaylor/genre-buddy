@@ -177,7 +177,7 @@ function displayBooks(data) {
 //only 100 requests a day so be careful of that
 function getMovies(genres) {
   fetch(
-    "https://imdb-api.com/API/AdvancedSearch/k_8usbkevm/?genres=" +
+    "https://imdb-api.com/API/AdvancedSearch/k_4oainy7g/?genres=" +
       genres +
       "&title_type=feature"
   ).then(function (response) {
