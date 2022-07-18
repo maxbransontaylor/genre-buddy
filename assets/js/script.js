@@ -1,6 +1,5 @@
 //grabs from searchbar class assuming we will use one
 var search = function (event) {
-
   if (event.target.matches(".btn")) {
     var genre = document.getElementById("genre").value;
     genre = genre.toLowerCase()
@@ -58,6 +57,8 @@ var getGames = function (genre) {
     "&ordering=-added&key=d1ca06a37be445e396ab6a2c11ae8516";
   fetch(apiUrl).then(function (response) {
     response.json().then(function (data) {
+      //this api has some common genres under "tags" and some under "genres"
+      // this checks both before throwing an error
       if (data.count == 0) {
         var apiUrl =
           "https://api.rawg.io/api/games?genres=" +
@@ -92,10 +93,6 @@ var getGames = function (genre) {
     });
   });
 };
-
-// var storeItem = function (genre, media, data) {
-//   localStorage.setItem(genre + media, JSON.stringify(data));
-// };
 
 var displayGames = function (results) {
   var orderedListEl = document.querySelector("#gameList > ul:first-of-type");
