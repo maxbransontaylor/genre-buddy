@@ -197,6 +197,7 @@ function getMovies(genres) {
 }
 //should work once classes are in place, I tested on a separate build
 function displayMovies(data) {
+  console.log(data.results);
   //check to see if a list element already exists, and of so, delete it before creating another one
   var elementExists = document.getElementById("listOfMovies");
   if (elementExists){
@@ -209,14 +210,19 @@ function displayMovies(data) {
   div.appendChild(orderedListEl);
   for (i = 0; i < 10; i++) {
     var title = data.results[i].title;
-    // var genres = data.results[i].genres;
     var listEl = document.createElement("li");
     listEl.classList.add("row", "collection-item", "avatar");
+    var imdb = data.results[i].imDbRating;
+    if (!imdb){
+      imdb = "Not available"
+    };
     listEl.innerHTML =
       "<img src='" +
       data.results[i].image +
       "' class = 'circle responsive-img'><span class='col s8'>" +
-      title + 
+      title +
+      "</span><span class='col s8'> IMDB Rating: " +
+      imdb +
       "</span>";
     orderedListEl.appendChild(listEl);
   }
