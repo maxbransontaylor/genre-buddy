@@ -161,18 +161,21 @@ function displayBooks(data) {
   div.appendChild(orderedListEl);
   orderedListEl.innerHTML = "";
   for (i = 0; i < 10; i++) {
-    console.log(data);
     var title = data[i].name;
     var listEl = document.createElement("li");
     listEl.classList.add("row", "collection-item", "avatar");
     listEl.innerHTML =
+      "<img src='" +
+      //this image source will likely have to be changed, waiting to refresh API key
+      data.results[i].image + 
+      "' class = 'circle responsive-img'><span class='col s8'>" +
       title +
-      "  " +
+      "</span>" +
       "<a href='" +
       data[i].url +
       "' target='_blank'git>Goodreads</a>";
     orderedListEl.appendChild(listEl);
-  }
+  };
 }
 
 //format for IMDb
