@@ -143,27 +143,3 @@ header {
   }
 }
 
-button {
-  margin: 10px;
-}
-.circle{
-  width: 60px !important;
-  height: 60px !important;
-}
-
-i{
-  padding-left: 10px;
-}
-#gameList, #movieList, #bookList{
-  border-radius: 15px;
-  margin: 1px;
-  width: 33%;
-}
-
-@media screen and (max-width: 600px){
-  #movieList h3,
-  #gameList h3,
-  #bookList h3 {
-    margin-left: 25vw;
-  };
-}
