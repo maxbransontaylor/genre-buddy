@@ -1,17 +1,18 @@
 body {
-  display: flex;
+  /* display: flex; */
   min-height: 100vh;
   flex-direction: column;
   background-image: url("../images/Dream.jpeg");
   background-size: cover;
   background-position: center;
   transition-property: background;
-  transition-duration: 2s;
+  transition-duration: 4s;
   transition-timing-function: linear;
 }
 
 header h1 {
   font-family: 'Fredoka One', sans-serif;
+  mix-blend-mode: difference;
 }
 
 main {
@@ -19,21 +20,21 @@ main {
 }
 
 header {
-  /* background-image: url("../images/Dream.jpeg"); */
   background-size: cover;
   color: white;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: Arial, Helvetica, sans-serif
 }
 
 .recom {
-  text-align: center;
+  text-align: left;
 }
 
 #movieList,
 #gameList,
 #bookList {
   background-color: rgba(255, 255, 255, .5);
-
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
 
 #movieList h3,
@@ -41,11 +42,13 @@ header {
 #bookList h3 {
   font-weight: bold;
   font-family: 'Fredoka One', sans-serif;
+  display: flex;
+  margin-left: 6vw;
 }
 
 .input-field {
   background-color: rgba(0, 0, 0, .5);
-  border-radius: 3px;
+  border-radius: 10px;
 }
 
 #genre {
@@ -112,13 +115,6 @@ header {
   padding: 2px 16px;
 }
 
-/* Modal Footer
-  .modal-footer {
-    padding: 2px 16px;
-    background-color: red;
-    color: black;
-  } */
-
 /* Modal Content */
 .modal-content {
   position: relative;
@@ -133,6 +129,28 @@ header {
   animation-duration: 0.4s
 }
 
+button {
+  margin: 10px;
+}
+
+.circle {
+  width: 60px !important;
+  height: 60px !important;
+}
+
+i {
+  padding-left: 10px;
+}
+
+.collection .collection-item {
+  background-color: rgba(255, 255, 255, .7);
+}
+
+.collection .collection-item img {
+  object-fit: cover;
+  object-position: center;
+}
+
 /* Add Animation */
 @keyframes animatetop {
   from {
@@ -141,20 +159,10 @@ header {
   }
 }
 
-  /* Add Animation */
-  @keyframes animatetop {
-    from {
-      top: -300px;
-      opacity: 0
-    }
-
-    to {
-      top: 0;
-      opacity: 1
-    }
+/* Add Animation */
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0
   }
-
-  button {
-    background-color: rgb(13, 226, 226);
-    margin: 10px;
-  }  
+}
