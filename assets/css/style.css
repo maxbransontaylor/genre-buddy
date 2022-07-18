@@ -1,5 +1,5 @@
 body {
-  display: flex;
+  /* display: flex; */
   min-height: 100vh;
   flex-direction: column;
   background-image: url("../images/Dream.jpeg");
@@ -33,7 +33,8 @@ header {
 #gameList,
 #bookList {
   background-color: rgba(255, 255, 255, .5);
-
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
 
 #movieList h3,
@@ -47,7 +48,7 @@ header {
 
 .input-field {
   background-color: rgba(0, 0, 0, .5);
-  border-radius: 3px;
+  border-radius: 10px;
 }
 
 #genre {
@@ -139,6 +140,15 @@ button {
 
 i {
   padding-left: 10px;
+}
+
+.collection .collection-item {
+  background-color: rgba(255, 255, 255, .7);
+}
+
+.collection .collection-item img {
+  object-fit: cover;
+  object-position: center;
 }
 
 /* Add Animation */

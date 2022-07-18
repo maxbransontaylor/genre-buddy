@@ -57,6 +57,8 @@ var getGames = function (genre) {
     "&ordering=-added&key=d1ca06a37be445e396ab6a2c11ae8516";
   fetch(apiUrl).then(function (response) {
     response.json().then(function (data) {
+      //this api has some common genres under "tags" and some under "genres"
+      // this checks both before throwing an error
       if (data.count == 0) {
         var apiUrl =
           "https://api.rawg.io/api/games?genres=" +
