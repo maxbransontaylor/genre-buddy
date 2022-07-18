@@ -20,14 +20,13 @@ main {
 }
 
 header {
-  /* background-image: url("../images/Dream.jpeg"); */
   background-size: cover;
   color: white;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: Arial, Helvetica, sans-serif
 }
 
 .recom {
-  text-align: center;
+  text-align: left;
 }
 
 #movieList,
@@ -42,6 +41,8 @@ header {
 #bookList h3 {
   font-weight: bold;
   font-family: 'Fredoka One', sans-serif;
+  display: flex;
+  margin-left: 6vw;
 }
 
 .input-field {
@@ -113,13 +114,6 @@ header {
   padding: 2px 16px;
 }
 
-/* Modal Footer
-  .modal-footer {
-    padding: 2px 16px;
-    background-color: red;
-    color: black;
-  } */
-
 /* Modal Content */
 .modal-content {
   position: relative;
@@ -134,23 +128,31 @@ header {
   animation-duration: 0.4s
 }
 
-/* Add Animation */
-@keyframes animatetop {
-  from {
-    top: -300px;
-    opacity: 0
-  }
-}
-
-/* Add Animation */
-@keyframes animatetop {
-  from {
-    top: -300px;
-    opacity: 0
-  }
-}
-
-
 button {
   margin: 10px;
+}
+
+.circle {
+  width: 60px !important;
+  height: 60px !important;
+}
+
+i {
+  padding-left: 10px;
+}
+
+/* Add Animation */
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0
+  }
+}
+
+/* Add Animation */
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0
+  }
 }

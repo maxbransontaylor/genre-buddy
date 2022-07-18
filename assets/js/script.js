@@ -1,10 +1,9 @@
 //grabs from searchbar class assuming we will use one
 var search = function (event) {
-
-  if (event.target.matches(".btn")) {
+  var targetEl = event.target;
+  if (targetEl.matches(".btn")) {
     var genre = document.getElementById("genre").value;
     genre = genre.toLowerCase()
-    console.log(genre);
     //getMovies now called in getGames to validate genre
     getGames(genre);
     getBooks(genre);
@@ -93,13 +92,17 @@ var getGames = function (genre) {
   });
 };
 
-// var storeItem = function (genre, media, data) {
-//   localStorage.setItem(genre + media, JSON.stringify(data));
-// };
-
 var displayGames = function (results) {
-  var orderedListEl = document.querySelector("#gameList > ul:first-of-type");
-  orderedListEl.innerHTML = "";
+  //check to see if a list element already exists, and of so, delete it before creating another one
+  var elementExists = document.getElementById("listOfGames");
+  if (elementExists) {
+    elementExists.remove();
+  }
+  var orderedListEl = document.createElement("ul");
+  orderedListEl.classList.add("collection", "recom");
+  orderedListEl.setAttribute("id", "listOfGames");
+  var div = document.getElementById("gameList");
+  div.appendChild(orderedListEl);
   for (var i = 0; i < 9; i++) {
     var name = results[i].name;
     var platformList = "";
@@ -112,13 +115,13 @@ var displayGames = function (results) {
       }
     }
     var listEl = document.createElement("li");
-    listEl.classList = "row";
+    listEl.classList.add("row", "collection-item", "avatar");
     listEl.innerHTML =
       "<img src='" +
       results[i].background_image +
-      "' class = 'col s4 circle responsive-img'><span class='col s8'>" +
+      "' class = 'circle responsive-img'><span class='col s8'>" +
       name +
-      "</span><span class='col s8'>" +
+      "</span><span class='col s12'>" +
       platformList +
       "</span>";
     orderedListEl.appendChild(listEl);
@@ -146,11 +149,22 @@ var getBooks = function (genre) {
 };
 
 function displayBooks(data) {
-  var orderedListEl = document.querySelector("#bookList > ul:first-of-type");
+  //check to see if a list element already exists, and of so, delete it before creating another one
+  var elementExists = document.getElementById("listOfBooks");
+  if (elementExists) {
+    elementExists.remove();
+  }
+  var orderedListEl = document.createElement("ul");
+  orderedListEl.classList.add("collection", "recom");
+  orderedListEl.setAttribute("id", "listOfBooks");
+  var div = document.getElementById("bookList");
+  div.appendChild(orderedListEl);
   orderedListEl.innerHTML = "";
   for (i = 0; i < 10; i++) {
+    console.log(data);
     var title = data[i].name;
     var listEl = document.createElement("li");
+    listEl.classList.add("row", "collection-item", "avatar");
     listEl.innerHTML =
       title +
       "  " +
@@ -183,13 +197,27 @@ function getMovies(genres) {
 }
 //should work once classes are in place, I tested on a separate build
 function displayMovies(data) {
-  var orderedListEl = document.querySelector("#movieList > ul:first-of-type");
-  orderedListEl.innerHTML = "";
+  //check to see if a list element already exists, and of so, delete it before creating another one
+  var elementExists = document.getElementById("listOfMovies");
+  if (elementExists) {
+    elementExists.remove();
+  }
+  var orderedListEl = document.createElement("ul");
+  orderedListEl.classList.add("collection", "recom");
+  orderedListEl.setAttribute("id", "listOfMovies");
+  var div = document.getElementById("movieList");
+  div.appendChild(orderedListEl);
   for (i = 0; i < 10; i++) {
     var title = data.results[i].title;
-    var genres = data.results[i].genres;
+    // var genres = data.results[i].genres;
     var listEl = document.createElement("li");
-    listEl.textContent = title + ", Genre:" + genres;
+    listEl.classList.add("row", "collection-item", "avatar");
+    listEl.innerHTML =
+      "<img src='" +
+      data.results[i].image +
+      "' class = 'circle responsive-img'><span class='col s8'>" +
+      title +
+      "</span>";
     orderedListEl.appendChild(listEl);
   }
 }
@@ -242,9 +270,9 @@ var loadHistory = function () {
       createButtonEl(searchHistory[i]);
     }
   }
-  console.log(searchHistory);
 };
 
+//create history buttons after a search
 var createButtonEl = function (genre) {
   var genreButton = document.createElement("button");
   genreButton.classList = "btn cyan";
@@ -254,15 +282,12 @@ var createButtonEl = function (genre) {
 };
 
 var buttonGenre = function (event) {
-  console.log("clicked history");
   var button = event.target;
   if (button.matches(".btn")) {
     var genre = button.getAttribute("data-genre");
-    console.log(genre);
     displayGames(JSON.parse(localStorage.getItem(genre + "games")));
     displayMovies(JSON.parse(localStorage.getItem(genre + "movies")));
     displayBooks(JSON.parse(localStorage.getItem(genre + "books")));
-    //displayMovies(JSON.parse(localStorage.getItem(genre + "movies")));
   }
 };
 
