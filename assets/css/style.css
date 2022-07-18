@@ -20,14 +20,13 @@ main {
 }
 
 header {
-  /* background-image: url("../images/Dream.jpeg"); */
   background-size: cover;
   color: white;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family:Arial, Helvetica, sans-serif
 }
 
 .recom {
-  text-align: center;
+  text-align: left;
 }
 
 #movieList,
@@ -42,8 +41,9 @@ header {
 #bookList h3 {
   font-weight: bold;
   font-family: 'Fredoka One', sans-serif;
+  display: flex;
+  margin-left: 6vw;
 }
-
 .input-field {
   background-color: rgba(0, 0, 0, .5);
   border-radius: 3px;
@@ -113,13 +113,6 @@ header {
   padding: 2px 16px;
 }
 
-/* Modal Footer
-  .modal-footer {
-    padding: 2px 16px;
-    background-color: red;
-    color: black;
-  } */
-
 /* Modal Content */
 .modal-content {
   position: relative;
@@ -150,7 +143,27 @@ header {
   }
 }
 
-
 button {
   margin: 10px;
+}
+.circle{
+  width: 60px !important;
+  height: 60px !important;
+}
+
+i{
+  padding-left: 10px;
+}
+#gameList, #movieList, #bookList{
+  border-radius: 15px;
+  margin: 1px;
+  width: 33%;
+}
+
+@media screen and (max-width: 600px){
+  #movieList h3,
+  #gameList h3,
+  #bookList h3 {
+    margin-left: 25vw;
+  };
 }
