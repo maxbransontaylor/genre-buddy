@@ -166,6 +166,9 @@ function displayBooks(data) {
     var listEl = document.createElement("li");
     listEl.classList.add("row", "collection-item", "avatar");
     listEl.innerHTML =
+      "<img src='" +
+      data[i].cover +
+      "' class = 'circle responsive-img'><span class='col s8'>" +
       title +
       "  " +
       "<a href='" +
