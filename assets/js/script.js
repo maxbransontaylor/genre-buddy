@@ -169,7 +169,7 @@ function displayBooks(data) {
     listEl.innerHTML =
       "<img src='" +
       //this image source will likely have to be changed, waiting to refresh API key
-      data.results[i].image + 
+      data[i].cover +
       "' class = 'circle responsive-img'><span class='col s8'>" +
       title +
       "</span>" +
@@ -218,7 +218,7 @@ function displayMovies(data) {
     var listEl = document.createElement("li");
     listEl.classList.add("row", "collection-item", "avatar");
     var imdb = data.results[i].imDbRating;
-    if (!imdb){
+    if (!imdb) {
       imdb = "Not available"
     };
     listEl.innerHTML =
