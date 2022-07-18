@@ -1,5 +1,5 @@
 body {
-  /* display: flex; */
+  display: flex;
   min-height: 100vh;
   flex-direction: column;
   background-image: url("../images/Dream.jpeg");
@@ -10,7 +10,7 @@ body {
   transition-timing-function: linear;
 }
 
-header h1 {
+header h1, h4, h5 {
   font-family: 'Fredoka One', sans-serif;
   mix-blend-mode: difference;
 }
@@ -29,9 +29,14 @@ header {
   text-align: left;
 }
 
+/* .search-results {
+  display: flex;
+} */
+
 #movieList,
 #gameList,
 #bookList {
+  
   background-color: rgba(255, 255, 255, .5);
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;

@@ -1,12 +1,16 @@
+var genreSearchTerm = document.querySelector("#genre-display");
+
 //grabs from searchbar class assuming we will use one
 var search = function (event) {
   var targetEl = event.target;
   if (targetEl.matches(".btn")) {
     var genre = document.getElementById("genre").value;
-    genre = genre.toLowerCase()
+    genre = genre.toLowerCase();
     //getMovies now called in getGames to validate genre
     getGames(genre);
     getBooks(genre);
+    genreSearchTerm.textContent = genre;
+    document.getElementById("genre").value = "";
   }
 };
 // //grabs from button class when user inputs genre of choice
@@ -171,12 +175,12 @@ function displayBooks(data) {
       data[i].cover +
       "' class = 'circle responsive-img'><span class='col s8'>" +
       title +
-      "</span>" + 
+      "</span>" +
       "<a href='" +
       data[i].url +
       "' target='_blank'git>Goodreads</a>";
     orderedListEl.appendChild(listEl);
-  };
+  }
 }
 
 //format for IMDb
@@ -184,8 +188,8 @@ function displayBooks(data) {
 function getMovies(genres) {
   fetch(
     "https://imdb-api.com/API/AdvancedSearch/k_y6c0caxw/?genres=" +
-    genres +
-    "&title_type=feature"
+      genres +
+      "&title_type=feature"
   ).then(function (response) {
     response.json().then(function (data) {
       if (data.count == 0) {
@@ -217,8 +221,8 @@ function displayMovies(data) {
     listEl.classList.add("row", "collection-item", "avatar");
     var imdb = data.results[i].imDbRating;
     if (!imdb) {
-      imdb = "Not available"
-    };
+      imdb = "Not available";
+    }
     listEl.innerHTML =
       "<img src='" +
       data.results[i].image +
@@ -229,7 +233,7 @@ function displayMovies(data) {
       "</span>";
     orderedListEl.appendChild(listEl);
   }
-};
+}
 
 function genreValidationModal() {
   // Get the modal
@@ -297,6 +301,7 @@ var buttonGenre = function (event) {
     displayGames(JSON.parse(localStorage.getItem(genre + "games")));
     displayMovies(JSON.parse(localStorage.getItem(genre + "movies")));
     displayBooks(JSON.parse(localStorage.getItem(genre + "books")));
+    genreSearchTerm.textContent = genre;
   }
 };
 

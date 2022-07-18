@@ -1,94 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Genre Buddy</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;700&family=Staatliches&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Genre Buddy</title>
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Open+Sans:wght@400;700&family=Staatliches&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="./assets/css/style.css" />
-</head>
-
-<body>
-  <header>
-    <div class="row">
-      <div class="col s12 m6">
-        <h1>Genre Buddy</h1>
-      </div>
-      <div class="input-field col s12 m6">
-        <h5>What genre do you like?</h5>
-        <input placeholder="ex: Horror, Fantasy, Action ..." id="genre" type="text" class="validate" />
-        <button class="btn waves-effect waves-light" type="submit" name="action">
-          Search
-          <i class="material-icons right">send</i>
-        </button>
-      </div>
-      <div class="col s12 m6 right" id="search-history">
-        <div class="row">
-          <div class="col s4">
-            <h5>Recent Searches:</h5>
+  <body>
+    <header>
+      <div class="row">
+        <div class="col s12 m6">
+          <h1>Genre Buddy</h1>
+          <h4>Currently Displaying:</h4>
+          <h5 id="genre-display"></h5>
+        </div>
+        <div class="input-field col s12 m6">
+          <h5>What genre do you like?</h5>
+          <input
+            placeholder="ex: Horror, Fantasy, Action ..."
+            id="genre"
+            type="text"
+            class="validate"
+          />
+          <button
+            class="btn waves-effect waves-light"
+            type="submit"
+            name="action"
+          >
+            Search
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+        <div class="col s12 m6 right" id="search-history">
+          <div class="row">
+            <div class="col s4">
+              <h5>Recent Searches:</h5>
+            </div>
+            <div class="col s8" id="history-button"></div>
           </div>
-          <div class="col s8" id="history-button"></div>
         </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <!--trigger/open the modal-->
-  <!-- <button id="myBtn">open modal</button> -->
+    <!--trigger/open the modal-->
+    <!-- <button id="myBtn">open modal</button> -->
 
-  <!--the modal-->
-  <div id="myModal" class="modal">
-    <!--modal content-->
-    <div class="modal-content">
-
-      <span class="close">&times;</span>
-      <h3>Error</h3>
-      <div class="modal-body">
-        <p>This is not a valid genre. Please try again.</p>
-      </div>
-      <!-- <div class="modal-footer">
+    <!--the modal-->
+    <div id="myModal" class="modal">
+      <!--modal content-->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Error</h3>
+        <div class="modal-body">
+          <p>This is not a valid genre. Please try again.</p>
+        </div>
+        <!-- <div class="modal-footer">
             <button clall="btn modal-trigger">Try Again</button>
           </div> -->
-    </div>
-  </div>
-  <main>
-    <div class="search-results">
-      <div class="row">
-        <!-- Games Div -->
-        <div id="gameList" class="col s12 m4 13">
-          <h3>Games <i class="medium material-icons">videogame_asset</i></h3>
-        </div>
-        <!-- Movies Div -->
-        <div id="movieList" class="col s12 m4 13">
-          <h3>Movies <i class="medium material-icons">local_movies</i></h3>
-        </div>
-        <!-- Books Div -->
-        <div id="bookList" class="col s12 m4 13">
-          <h3>Books <i class="medium material-icons">book</i></h3>
-        </div>
       </div>
     </div>
-  </main>
-  <footer class="page-footer">
-    <div>
+    <main>
+      <div class="search-results col s12 m4 13">
+        <div class="row">
+          <!-- Games Div -->
+          <div id="gameList" class="col s12 m4 13">
+            <h3>Games <i class="medium material-icons">videogame_asset</i></h3>
+          </div>
+          <!-- Movies Div -->
+          <div id="movieList" class="col s12 m4 13">
+            <h3>Movies <i class="medium material-icons">local_movies</i></h3>
+          </div>
+          <!-- Books Div -->
+          <div id="bookList" class="col s12 m4 13">
+            <h3>Books <i class="medium material-icons">book</i></h3>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="page-footer">
       <div class="row">
         <div class="col s12 m4 13">
           Made with love by Genre Buddies &#10084;
         </div>
-        <p class="right">Game results powered by <a href="https://rawg.io/" target="_blank">R A W G </a>
+        <p class="right">
+          Game results powered by
+          <a href="https://rawg.io/" target="_blank">R A W G </a>
           &nbsp;&nbsp;&nbsp;
         </p>
       </div>
-  </footer>
-  <script src="./assets/js/script.js"></script>
-</body>
-
+    </footer>
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>
