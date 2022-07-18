@@ -1,14 +1,23 @@
 //grabs from searchbar class assuming we will use one
 var search = function (event) {
   var targetEl = event.target;
-  if (event.target.matches(".btn")) {
+  if (targetEl.matches(".btn")) {
     var genre = document.getElementById("genre").value;
-    console.log(genre);
+    genre = genre.toLowerCase()
     //getMovies now called in getGames to validate genre
     getGames(genre);
     getBooks(genre);
   }
 };
+//submit search when enter key is hit
+//it works its just slow to load
+document.getElementById("genre");
+addEventListener("keyup", function(event) {
+  event.preventDefault
+    if (event.keyCode === 13) {
+      document.getElementById("btn").click()
+    }
+});
 // //grabs from button class when user inputs genre of choice
 document.querySelector(".input-field").addEventListener("click", search);
 
@@ -57,6 +66,8 @@ var getGames = function (genre) {
     "&ordering=-added&key=d1ca06a37be445e396ab6a2c11ae8516";
   fetch(apiUrl).then(function (response) {
     response.json().then(function (data) {
+      //this api has some common genres under "tags" and some under "genres"
+      // this checks both before throwing an error
       if (data.count == 0) {
         var apiUrl =
           "https://api.rawg.io/api/games?genres=" +
@@ -92,24 +103,17 @@ var getGames = function (genre) {
   });
 };
 
-// var storeItem = function (genre, media, data) {
-//   localStorage.setItem(genre + media, JSON.stringify(data));
-// };
-
-var searchHistory = [];
-
-var storeItem = function (genre) {
-  if (searchHistory.indexOf(genre) !== -1) {
-    return;
-  }
-  var genreArr = JSON.parse(localStorage.getItem("genreArr")) || [];
-  genreArr.push(genre);
-  localStorage.setItem("genreArr", JSON.stringify(genreArr));
-};
-
 var displayGames = function (results) {
-  var orderedListEl = document.querySelector("#gameList > ul:first-of-type");
-  orderedListEl.innerHTML = "";
+  //check to see if a list element already exists, and of so, delete it before creating another one
+  var elementExists = document.getElementById("listOfGames");
+  if (elementExists) {
+    elementExists.remove();
+  }
+  var orderedListEl = document.createElement("ul");
+  orderedListEl.classList.add("collection", "recom");
+  orderedListEl.setAttribute("id", "listOfGames");
+  var div = document.getElementById("gameList");
+  div.appendChild(orderedListEl);
   for (var i = 0; i < 9; i++) {
     var name = results[i].name;
     var platformList = "";
@@ -122,13 +126,14 @@ var displayGames = function (results) {
       }
     }
     var listEl = document.createElement("li");
-    listEl.classList = "row";
+    listEl.classList.add("row", "collection-item", "avatar");
+    listEl.style.fontWeight = "bold"
     listEl.innerHTML =
       "<img src='" +
       results[i].background_image +
-      "' class = 'col s4 circle responsive-img'><span class='col s8'>" +
+      "' class = 'circle responsive-img'><span class='col s8'>" +
       name +
-      "</span><span class='col s8'>" +
+      "</span><span class='col s12'>" +
       platformList +
       "</span>";
     orderedListEl.appendChild(listEl);
@@ -138,7 +143,7 @@ var getBooks = function (genre) {
   const options = {
     method: "GET",
     headers: {
-      "x-rapidAPI-Key": "e1a7805621msh007883c822e3da0p1e2f44jsn5f89d4d71451",
+      "X-RapidAPI-Key": "7326db8357msh61c312a20e75e92p14b571jsn2c1250e73a41",
       "X-RapidAPI-Host": "hapi-books.p.rapidapi.com",
     },
   };
@@ -146,30 +151,43 @@ var getBooks = function (genre) {
   fetch("https://hapi-books.p.rapidapi.com/week/" + genre, options).then(
     function (response) {
       response.json().then(function (data) {
-        // storeItem(genre, "books", data);
-        displayBooks(data);
+        if (data.length) {
+          storeItem(genre, "books", data);
+          displayBooks(data);
+        }
       });
     }
   );
 };
 
 function displayBooks(data) {
-  var orderedListEl = document.querySelector("#bookList > ul:first-of-type");
+  //check to see if a list element already exists, and of so, delete it before creating another one
+  var elementExists = document.getElementById("listOfBooks");
+  if (elementExists) {
+    elementExists.remove();
+  }
+  var orderedListEl = document.createElement("ul");
+  orderedListEl.classList.add("collection", "recom");
+  orderedListEl.setAttribute("id", "listOfBooks");
+  var div = document.getElementById("bookList");
+  div.appendChild(orderedListEl);
   orderedListEl.innerHTML = "";
   for (i = 0; i < 10; i++) {
     var title = data[i].name;
-    var img = data[i].cover
     var listEl = document.createElement("li");
-    
+    listEl.classList.add("row", "collection-item", "avatar");
+    listEl.style.fontWeight = "bold"
     listEl.innerHTML =
+      "<img src='" +
+      data[i].cover +
+      "' class = 'circle responsive-img'><span class='col s8'>" +
       title +
-      "  " +
-      img +
+      "</span>" + 
       "<a href='" +
       data[i].url +
       "' target='_blank'git>Goodreads</a>";
     orderedListEl.appendChild(listEl);
-  }
+  };
 }
 
 //format for IMDb
@@ -177,9 +195,9 @@ function displayBooks(data) {
 //only 100 requests a day so be careful of that
 function getMovies(genres) {
   fetch(
-    "https://imdb-api.com/API/AdvancedSearch/k_4oainy7g/?genres=" +
-      genres +
-      "&title_type=feature"
+    "https://imdb-api.com/API/AdvancedSearch/k_y6c0caxw/?genres=" +
+    genres +
+    "&title_type=feature"
   ).then(function (response) {
     response.json().then(function (data) {
       if (data.count == 0) {
@@ -188,24 +206,43 @@ function getMovies(genres) {
         return false;
       } else {
         displayMovies(data);
-        // storeItem(genres, "movies", data);
+        storeItem(genres, "movies", data);
       }
     });
   });
 }
 
 function displayMovies(data) {
-  var orderedListEl = document.querySelector("#movieList > ul:first-of-type");
-  orderedListEl.innerHTML = "";
+  //check to see if a list element already exists, and of so, delete it before creating another one
+  var elementExists = document.getElementById("listOfMovies");
+  if (elementExists) {
+    elementExists.remove();
+  }
+  var orderedListEl = document.createElement("ul");
+  orderedListEl.classList.add("collection", "recom");
+  orderedListEl.setAttribute("id", "listOfMovies");
+  var div = document.getElementById("movieList");
+  div.appendChild(orderedListEl);
   for (i = 0; i < 10; i++) {
     var title = data.results[i].title;
-    var genres = data.results[i].genres;
-    var img = data.results[i].image
     var listEl = document.createElement("li");
-    listEl.textContent = title + ", Genre:" + genres + img;
+    listEl.classList.add("row", "collection-item", "avatar");
+    var imdb = data.results[i].imDbRating;
+    if (!imdb) {
+      imdb = "Not available"
+    };
+    listEl.style.fontWeight = "bold"
+    listEl.innerHTML =
+      "<img src='" +
+      data.results[i].image +
+      "' class = 'circle responsive-img'><span class='col s8'>" +
+      title +
+      "</span><span class='col s8'> IMDB Rating: " +
+      imdb +
+      "</span>";
     orderedListEl.appendChild(listEl);
   }
-}
+};
 
 function genreValidationModal() {
   // Get the modal
@@ -234,51 +271,78 @@ function genreValidationModal() {
     }
   };
 }
+var searchHistory = [];
+
+var storeItem = function (genre, media, data) {
+  localStorage.setItem(genre + media, JSON.stringify(data));
+  if (searchHistory.indexOf(genre.toLowerCase()) == -1) {
+    searchHistory.push(genre);
+    localStorage.setItem("genreArr", JSON.stringify(searchHistory));
+    createButtonEl(genre);
+  }
+};
 
 var genreButtonEl = document.querySelector("#history-button");
 
 var loadHistory = function () {
-  var savedGenre = localStorage.getItem("genreArr");
+  var savedGenre = JSON.parse(localStorage.getItem("genreArr"));
   if (savedGenre) {
-    searchHistory = JSON.parse(savedGenre);
+    searchHistory = savedGenre;
+    for (var i = 0; i < searchHistory.length; i++) {
+      createButtonEl(searchHistory[i]);
+    }
   }
-  console.log(searchHistory);
-  createButtonEl();
 };
 
-var createButtonEl = function () {
-  for (var i = 0; i <= searchHistory.length - 1; i++) {
-    var genreButton = document.createElement("button");
-    genreButton.textContent = searchHistory[i];
-    genreButton.setAttribute("data-genre", searchHistory[i]);
-    console.log(i);
-    genreButtonEl.appendChild(genreButton);
-  }
+//create history buttons after a search
+var createButtonEl = function (genre) {
+  var genreButton = document.createElement("button");
+  genreButton.classList = "btn cyan";
+  genreButton.textContent = genre;
+  genreButton.setAttribute("data-genre", genre);
+  genreButtonEl.appendChild(genreButton);
 };
 
 var buttonGenre = function (event) {
-  console.log("clicked history");
   var button = event.target;
-  var buttonclick = button.getAttribute("data-genre");
-  console.log(buttonclick);
-  getMovies(buttonclick);
-  getGames(buttonclick);
-  getBooks(buttonclick);
+  if (button.matches(".btn")) {
+    var genre = button.getAttribute("data-genre");
+    displayGames(JSON.parse(localStorage.getItem(genre + "games")));
+    displayMovies(JSON.parse(localStorage.getItem(genre + "movies")));
+    displayBooks(JSON.parse(localStorage.getItem(genre + "books")));
+  }
 };
 
 genreButtonEl.addEventListener("click", buttonGenre);
 loadHistory();
 var backgroundTransition = function () {
-  var urls = ["Action-img-2.jpg", "Horror-img-1.jpg", "Mystery-img-1.jpg", "Scifi-img-1.jpg", "Action-img-3.jpg", "fantasy-img-2.jpg", "Horror-img-2.jpg", "Mystery-img-2.jpg", "Scifi-img-2.jpg", "fantasy-img-4.jpg", "Horror-img-3.jpg", "Scifi-img-3.jpg", "Action-img-4.jpg", "Horror-img-4.jpg", "Scifi-img-4.jpg"]
+  var urls = [
+    "Action-img-2.jpg",
+    "Horror-img-1.jpg",
+    "Mystery-img-1.jpg",
+    "Scifi-img-1.jpg",
+    "Action-img-3.jpg",
+    "fantasy-img-2.jpg",
+    "Horror-img-2.jpg",
+    "Mystery-img-2.jpg",
+    "Scifi-img-2.jpg",
+    "fantasy-img-4.jpg",
+    "Horror-img-3.jpg",
+    "Scifi-img-3.jpg",
+    "Action-img-4.jpg",
+    "Horror-img-4.jpg",
+    "Scifi-img-4.jpg",
+  ];
   var index = 0;
   setInterval(function () {
     if (index == urls.length) {
       index = 0;
     }
-    console.log("loop")
-    document.body.style.backgroundImage = "url('./assets/images/" + urls[index] + "')"
 
-    index++
-  }, 3000)
-}
+    document.body.style.backgroundImage =
+      "url('./assets/images/" + urls[index] + "')";
+
+    index++;
+  }, 30000);
+};
 backgroundTransition();
