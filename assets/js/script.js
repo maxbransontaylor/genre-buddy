@@ -171,6 +171,7 @@ function displayBooks(data) {
   orderedListEl.setAttribute("id", "listOfBooks");
   var div = document.getElementById("bookList");
   div.appendChild(orderedListEl);
+ 
   orderedListEl.innerHTML = "";
   for (i = 0; i < 10; i++) {
     var title = data[i].name;
@@ -221,16 +222,17 @@ function displayMovies(data) {
   orderedListEl.classList.add("collection", "recom");
   orderedListEl.setAttribute("id", "listOfMovies");
   var div = document.getElementById("movieList");
+ 
   div.appendChild(orderedListEl);
   for (i = 0; i < 10; i++) {
     var title = data.results[i].title;
     var listEl = document.createElement("li");
     listEl.classList.add("row", "collection-item", "avatar");
-    listEl.style.fontWeight = "bold"
     var imdb = data.results[i].imDbRating;
     if (!imdb) {
       imdb = "Not available"
     };
+    listEl.style.fontWeight = "bold"
     listEl.innerHTML =
       "<img src='" +
       data.results[i].image +
