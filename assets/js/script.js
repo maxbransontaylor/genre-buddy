@@ -9,6 +9,15 @@ var search = function (event) {
     getBooks(genre);
   }
 };
+//submit search when enter key is hit
+//it works its just slow to load
+document.getElementById("genre");
+addEventListener("keyup", function(event) {
+  event.preventDefault
+    if (event.keyCode === 13) {
+      document.getElementById("btn").click()
+    }
+});
 // //grabs from button class when user inputs genre of choice
 document.querySelector(".input-field").addEventListener("click", search);
 
