@@ -11,7 +11,7 @@ var search = function (event) {
 };
 //submit search when enter key is hit
 //it works its just slow to load
-document.getElementById("genre");
+document.getElementById("genre")
 addEventListener("keyup", function(event) {
   event.preventDefault
     if (event.keyCode === 13) {
