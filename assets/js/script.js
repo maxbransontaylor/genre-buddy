@@ -398,6 +398,6 @@ var backgroundTransition = function () {
       "url('./assets/images/" + urls[index] + "')";
 
     index++;
-  }, 3000);
+  }, 30000);
 };
 backgroundTransition();
