@@ -9,14 +9,17 @@ var search = function (event) {
     //getMovies now called in getGames to validate genre
     getGames(genre);
     //getBooks(genre);
+    genreSearchTerm.textContent = genre;
+    document.getElementById("genre").value = "";
   }
 };
+
 //submit search when enter key is hit
 //it works its just slow to load
 document.getElementById("genre").addEventListener("keyup", function (event) {
-  event.preventDefault
+  event.preventDefault;
   if (event.keyCode === 13) {
-    document.getElementById("btn").click()
+    document.getElementById("btn").click();
   }
 });
 // //grabs from button class when user inputs genre of choice
@@ -123,12 +126,11 @@ var displayGames = function (results) {
   outer: for (var i = 0; i < count; i++) {
     //checks for nsfw tags before displaying games
     for (var q = 0; q < results[i].tags.length; q++) {
-      var nsfwTags = ["nsfw", "sexual content", "nudity", "sexual-content"]
+      var nsfwTags = ["nsfw", "sexual content", "nudity", "sexual-content"];
       if (nsfwTags.indexOf(results[i].tags[q].name.toLowerCase()) != -1) {
-        count++
+        count++;
         continue outer;
       }
-
     }
     var name = results[i].name;
     var platformList = "";
@@ -143,7 +145,7 @@ var displayGames = function (results) {
     platformList = platformList.slice(0, -2);
     var listEl = document.createElement("li");
     listEl.classList.add("row", "collection-item", "avatar");
-    listEl.style.fontWeight = "bold"
+    listEl.style.fontWeight = "bold";
     listEl.innerHTML =
       "<img src='" +
       results[i].background_image +
@@ -192,7 +194,7 @@ function displayBooks(data) {
     var title = data[i].name;
     var listEl = document.createElement("li");
     listEl.classList.add("row", "collection-item", "avatar");
-    listEl.style.fontWeight = "bold"
+    listEl.style.fontWeight = "bold";
     listEl.innerHTML =
       "<img src='" +
       data[i].cover +
@@ -212,8 +214,8 @@ function displayBooks(data) {
 function getMovies(genres) {
   fetch(
     "https://imdb-api.com/API/AdvancedSearch/k_y6c0caxw/?genres=" +
-    genres +
-    "&title_type=feature"
+      genres +
+      "&title_type=feature"
   ).then(function (response) {
     response.json().then(function (data) {
       if (data.count == 0) {
@@ -372,20 +374,20 @@ var urls = [
   "Scifi-img-3.jpg",
   "Action-img-4.jpg",
   "Horror-img-4.jpg",
-  "Scifi-img-4.jpg",]
-var images = new Array()
+  "Scifi-img-4.jpg",
+];
+var images = new Array();
 function preload(url) {
-  var image = new Image()
+  var image = new Image();
   image.src = url;
   images.push(image);
 }
 function preloader() {
   for (var i = 0; i < urls.length; i++) {
-    preload("./assets/images/" + urls[i])
+    preload("./assets/images/" + urls[i]);
   }
 }
 preloader();
-
 
 var backgroundTransition = function () {
   var index = 0;
