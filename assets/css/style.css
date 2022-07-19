@@ -151,6 +151,14 @@ i {
   object-position: center;
 }
 
+li a{
+  text-decoration: underline;
+}
+
+.blue-text{
+  font-weight: 800;
+}
+
 /* Add Animation */
 @keyframes animatetop {
   from {

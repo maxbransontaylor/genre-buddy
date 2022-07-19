@@ -120,18 +120,19 @@ var displayGames = function (results) {
     for (var n = 0; n < results[i].platforms.length; n++) {
       if (results[i].platforms[n]) {
         var newItem = results[i].platforms[n].platform.name;
-        platformList += newItem + " ";
+        platformList += newItem + ", ";
       } else {
         break;
       }
     }
+    platformList = platformList.slice(0, -2);
     var listEl = document.createElement("li");
     listEl.classList.add("row", "collection-item", "avatar");
     listEl.style.fontWeight = "bold"
     listEl.innerHTML =
       "<img src='" +
       results[i].background_image +
-      "' class = 'circle responsive-img'><span class='col s8'>" +
+      "' class = 'circle responsive-img'><span class='col s8 blue-text text-darken-2'>" +
       name +
       "</span><span class='col s12'>" +
       platformList +
@@ -180,9 +181,9 @@ function displayBooks(data) {
     listEl.innerHTML =
       "<img src='" +
       data[i].cover +
-      "' class = 'circle responsive-img'><span class='col s8'>" +
+      "' class = 'circle responsive-img'><span class='col s8 blue-text text-darken-2'>" +
       title +
-      "</span>" + 
+      "</span>" +
       "<a href='" +
       data[i].url +
       "' target='_blank'git>Goodreads</a>";
@@ -235,9 +236,9 @@ function displayMovies(data) {
     listEl.innerHTML =
       "<img src='" +
       data.results[i].image +
-      "' class = 'circle responsive-img'><span class='col s8'>" +
+      "' class = 'circle responsive-img'><span class='col s8 blue-text text-darken-2'>" +
       title +
-      "</span><span class='col s8'> IMDB Rating: " +
+      "</span><span class='col s8'> IMDb Rating: " +
       imdb +
       "</span>";
     orderedListEl.appendChild(listEl);
