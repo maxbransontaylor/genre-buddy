@@ -59,43 +59,47 @@ var getGames = function (genre) {
     "," +
     today +
     "&ordering=-added&key=d1ca06a37be445e396ab6a2c11ae8516";
-  fetch(apiUrl).then(function (response) {
-    response.json().then(function (data) {
-      //this api has some common genres under "tags" and some under "genres"
-      // this checks both before throwing an error
-      if (data.count == 0) {
-        var apiUrl =
-          "https://api.rawg.io/api/games?genres=" +
-          genre +
-          "&dates=" +
-          lastMonth +
-          "," +
-          today +
-          "&ordering=-added&key=d1ca06a37be445e396ab6a2c11ae8516";
-        fetch(apiUrl).then(function (response) {
-          response.json().then(function (data) {
-            if (data.count == 0) {
-              //error message
-              genreValidationModal();
-              return false;
-            } else {
-              //getMovies now called here to validate genre
-              getMovies(genre);
-              var results = data.results;
-              displayGames(results);
-              storeItem(genre, "games", results);
-            }
+  fetch(apiUrl)
+    .then(function (response) {
+      response.json().then(function (data) {
+        //this api has some common genres under "tags" and some under "genres"
+        // this checks both before throwing an error
+        if (data.count == 0) {
+          var apiUrl =
+            "https://api.rawg.io/api/games?genres=" +
+            genre +
+            "&dates=" +
+            lastMonth +
+            "," +
+            today +
+            "&ordering=-added&key=d1ca06a37be445e396ab6a2c11ae8516";
+          fetch(apiUrl).then(function (response) {
+            response.json().then(function (data) {
+              if (data.count == 0) {
+                //error message
+                genreValidationModal();
+                return false;
+              } else {
+                //getMovies now called here to validate genre
+                getMovies(genre);
+                var results = data.results;
+                displayGames(results);
+                storeItem(genre, "games", results);
+              }
+            });
           });
-        });
-      } else {
-        //getMovies now called here to validate genre
-        getMovies(genre);
-        var results = data.results;
-        displayGames(results);
-        storeItem(genre, "games", results);
-      }
+        } else {
+          //getMovies now called here to validate genre
+          getMovies(genre);
+          var results = data.results;
+          displayGames(results);
+          storeItem(genre, "games", results);
+        }
+      });
+    })
+    .catch(function () {
+      apiModal();
     });
-  });
 };
 
 var displayGames = function (results) {
@@ -244,6 +248,31 @@ function genreValidationModal() {
 
   // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks on the button, open the modal
+  // function displyModal() {
+  modal.style.display = "block";
+  // }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+}
+
+function apiModal() {
+  // Get the modal
+  var modal = document.getElementById("serverModal");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[1];
 
   // When the user clicks on the button, open the modal
   // function displyModal() {
