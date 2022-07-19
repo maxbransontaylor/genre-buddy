@@ -377,6 +377,7 @@ var images = new Array()
 function preload(url) {
   var image = new Image()
   image.src = url;
+  images.push(image);
 }
 function preloader() {
   for (var i = 0; i < urls.length; i++) {
@@ -397,6 +398,6 @@ var backgroundTransition = function () {
       "url('./assets/images/" + urls[index] + "')";
 
     index++;
-  }, 30000);
+  }, 3000);
 };
 backgroundTransition();
