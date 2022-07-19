@@ -1,9 +1,11 @@
+var genreSearchTerm = document.querySelector("#genre-display");
+
 //grabs from searchbar class assuming we will use one
 var search = function (event) {
   var targetEl = event.target;
   if (targetEl.matches(".btn")) {
     var genre = document.getElementById("genre").value;
-    genre = genre.toLowerCase()
+    genre = genre.toLowerCase();
     //getMovies now called in getGames to validate genre
     getGames(genre);
     //getBooks(genre);
@@ -64,43 +66,47 @@ var getGames = function (genre) {
     "," +
     today +
     "&ordering=-added&key=d1ca06a37be445e396ab6a2c11ae8516";
-  fetch(apiUrl).then(function (response) {
-    response.json().then(function (data) {
-      //this api has some common genres under "tags" and some under "genres"
-      // this checks both before throwing an error
-      if (data.count == 0) {
-        var apiUrl =
-          "https://api.rawg.io/api/games?genres=" +
-          genre +
-          "&dates=" +
-          lastMonth +
-          "," +
-          today +
-          "&ordering=-added&key=d1ca06a37be445e396ab6a2c11ae8516";
-        fetch(apiUrl).then(function (response) {
-          response.json().then(function (data) {
-            if (data.count == 0) {
-              //error message
-              genreValidationModal();
-              return false;
-            } else {
-              //getMovies now called here to validate genre
-              getMovies(genre);
-              var results = data.results;
-              displayGames(results);
-              storeItem(genre, "games", results);
-            }
+  fetch(apiUrl)
+    .then(function (response) {
+      response.json().then(function (data) {
+        //this api has some common genres under "tags" and some under "genres"
+        // this checks both before throwing an error
+        if (data.count == 0) {
+          var apiUrl =
+            "https://api.rawg.io/api/games?genres=" +
+            genre +
+            "&dates=" +
+            lastMonth +
+            "," +
+            today +
+            "&ordering=-added&key=d1ca06a37be445e396ab6a2c11ae8516";
+          fetch(apiUrl).then(function (response) {
+            response.json().then(function (data) {
+              if (data.count == 0) {
+                //error message
+                genreValidationModal();
+                return false;
+              } else {
+                //getMovies now called here to validate genre
+                getMovies(genre);
+                var results = data.results;
+                displayGames(results);
+                storeItem(genre, "games", results);
+              }
+            });
           });
-        });
-      } else {
-        //getMovies now called here to validate genre
-        getMovies(genre);
-        var results = data.results;
-        displayGames(results);
-        storeItem(genre, "games", results);
-      }
+        } else {
+          //getMovies now called here to validate genre
+          getMovies(genre);
+          var results = data.results;
+          displayGames(results);
+          storeItem(genre, "games", results);
+        }
+      });
+    })
+    .catch(function () {
+      apiModal();
     });
-  });
 };
 
 var displayGames = function (results) {
@@ -194,7 +200,7 @@ function displayBooks(data) {
       data[i].url +
       "' target='_blank'git>Goodreads</a>";
     orderedListEl.appendChild(listEl);
-  };
+  }
 }
 
 //format for IMDb
@@ -236,9 +242,8 @@ function displayMovies(data) {
     listEl.classList.add("row", "collection-item", "avatar");
     var imdb = data.results[i].imDbRating;
     if (!imdb) {
-      imdb = "Not available"
-    };
-    listEl.style.fontWeight = "bold"
+      imdb = "Not available";
+    }
     listEl.innerHTML =
       "<img src='" +
       data.results[i].image +
@@ -249,7 +254,7 @@ function displayMovies(data) {
       "</span>";
     orderedListEl.appendChild(listEl);
   }
-};
+}
 
 function genreValidationModal() {
   // Get the modal
@@ -260,6 +265,31 @@ function genreValidationModal() {
 
   // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks on the button, open the modal
+  // function displyModal() {
+  modal.style.display = "block";
+  // }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
+}
+
+function apiModal() {
+  // Get the modal
+  var modal = document.getElementById("serverModal");
+
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[1];
 
   // When the user clicks on the button, open the modal
   // function displyModal() {
@@ -317,6 +347,7 @@ var buttonGenre = function (event) {
     displayGames(JSON.parse(localStorage.getItem(genre + "games")));
     displayMovies(JSON.parse(localStorage.getItem(genre + "movies")));
     displayBooks(JSON.parse(localStorage.getItem(genre + "books")));
+    genreSearchTerm.textContent = genre;
   }
 };
 
