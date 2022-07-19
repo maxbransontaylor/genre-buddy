@@ -13,8 +13,7 @@ var search = function (event) {
 };
 //submit search when enter key is hit
 //it works its just slow to load
-document.getElementById("genre");
-addEventListener("keyup", function (event) {
+document.getElementById("genre").addEventListener("keyup", function (event) {
   event.preventDefault
   if (event.keyCode === 13) {
     document.getElementById("btn").click()
@@ -121,10 +120,14 @@ var displayGames = function (results) {
   var div = document.getElementById("gameList");
   div.appendChild(orderedListEl);
   var count = 9;
-  for (var i = 0; i < count; i++) {
+  outer: for (var i = 0; i < count; i++) {
     //checks for nsfw tags before displaying games
     for (var q = 0; q < results[i].tags.length; q++) {
-      if (results[i].tags[q].name.toLowerCase() ==) { }
+      var nsfwTags = ["nsfw", "sexual content", "nudity", "sexual-content"]
+      if (nsfwTags.indexOf(results[i].tags[q].name.toLowerCase()) != -1) {
+        count++
+        continue outer;
+      }
 
     }
     var name = results[i].name;
@@ -344,10 +347,11 @@ var buttonGenre = function (event) {
   var button = event.target;
   if (button.matches(".btn")) {
     var genre = button.getAttribute("data-genre");
+    genreSearchTerm.textContent = genre;
     displayGames(JSON.parse(localStorage.getItem(genre + "games")));
     displayMovies(JSON.parse(localStorage.getItem(genre + "movies")));
     displayBooks(JSON.parse(localStorage.getItem(genre + "books")));
-    genreSearchTerm.textContent = genre;
+    console.log("button" + genre);
   }
 };
 
