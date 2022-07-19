@@ -8,13 +8,15 @@ var search = function (event) {
     genre = genre.toLowerCase();
     //getMovies now called in getGames to validate genre
     getGames(genre);
-    getBooks(genre);
+    //getBooks(genre);
+    genreSearchTerm.textContent = genre;
+    document.getElementById("genre").value = "";
   }
 };
+
 //submit search when enter key is hit
 //it works its just slow to load
-document.getElementById("genre");
-addEventListener("keyup", function (event) {
+document.getElementById("genre").addEventListener("keyup", function (event) {
   event.preventDefault;
   if (event.keyCode === 13) {
     document.getElementById("btn").click();
