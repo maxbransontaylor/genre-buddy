@@ -6,17 +6,17 @@ var search = function (event) {
     genre = genre.toLowerCase()
     //getMovies now called in getGames to validate genre
     getGames(genre);
-    getBooks(genre);
+    //getBooks(genre);
   }
 };
 //submit search when enter key is hit
 //it works its just slow to load
 document.getElementById("genre");
-addEventListener("keyup", function(event) {
+addEventListener("keyup", function (event) {
   event.preventDefault
-    if (event.keyCode === 13) {
-      document.getElementById("btn").click()
-    }
+  if (event.keyCode === 13) {
+    document.getElementById("btn").click()
+  }
 });
 // //grabs from button class when user inputs genre of choice
 document.querySelector(".input-field").addEventListener("click", search);
@@ -114,7 +114,13 @@ var displayGames = function (results) {
   orderedListEl.setAttribute("id", "listOfGames");
   var div = document.getElementById("gameList");
   div.appendChild(orderedListEl);
-  for (var i = 0; i < 9; i++) {
+  var count = 9;
+  for (var i = 0; i < count; i++) {
+    //checks for nsfw tags before displaying games
+    for (var q = 0; q < results[i].tags.length; q++) {
+      if (results[i].tags[q].name.toLowerCase() ==) { }
+
+    }
     var name = results[i].name;
     var platformList = "";
     for (var n = 0; n < results[i].platforms.length; n++) {
