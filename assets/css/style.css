@@ -19,6 +19,7 @@ h5 {
 
 main {
   flex: 1 0 auto;
+  margin: 10px;
 }
 
 header {
@@ -76,7 +77,7 @@ header {
   /* Full width */
   height: auto;
   /* Full height */
-  overflow: auto;
+  /* overflow: auto; */
   /* Enable scroll if needed */
   background-color: rgb(0, 0, 0);
   /* Fallback color */

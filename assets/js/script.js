@@ -6,9 +6,9 @@ var search = function (event) {
   if (targetEl.matches(".btn")) {
     var genre = document.getElementById("genre").value;
     genre = genre.toLowerCase();
-    //getMovies now called in getGames to validate genre
+    // getMovies(genre); -- now being called in getGames
     getGames(genre);
-    //getBooks(genre);
+    // getBooks(genre);
     genreSearchTerm.textContent = genre;
     document.getElementById("genre").value = "";
   }
@@ -107,7 +107,7 @@ var getGames = function (genre) {
       });
     })
     .catch(function () {
-      apiModal();
+      apiModal("Games");
     });
 };
 
@@ -168,12 +168,17 @@ var getBooks = function (genre) {
 
   fetch("https://hapi-books.p.rapidapi.com/week/" + genre, options).then(
     function (response) {
-      response.json().then(function (data) {
-        if (data.length) {
-          storeItem(genre, "books", data);
-          displayBooks(data);
-        }
-      });
+      response
+        .json()
+        .then(function (data) {
+          if (data.length) {
+            storeItem(genre, "books", data);
+            displayBooks(data);
+          }
+        })
+        .catch(function () {
+          apiModal("Books");
+        });
     }
   );
 };
@@ -216,18 +221,22 @@ function getMovies(genres) {
     "https://imdb-api.com/API/AdvancedSearch/k_y6c0caxw/?genres=" +
       genres +
       "&title_type=feature"
-  ).then(function (response) {
-    response.json().then(function (data) {
-      if (data.count == 0) {
-        //error message
+  )
+    .then(function (response) {
+      response.json().then(function (data) {
+        if (data.count == 0) {
+          //error message
 
-        return false;
-      } else {
-        displayMovies(data);
-        storeItem(genres, "movies", data);
-      }
+          return false;
+        } else {
+          displayMovies(data);
+          storeItem(genres, "movies", data);
+        }
+      });
+    })
+    .catch(function () {
+      apiModal("Movies");
     });
-  });
 }
 
 function displayMovies(data) {
@@ -289,7 +298,7 @@ function genreValidationModal() {
   };
 }
 
-function apiModal() {
+function apiModal(media) {
   // Get the modal
   var modal = document.getElementById("serverModal");
 
@@ -312,6 +321,7 @@ function apiModal() {
       modal.style.display = "none";
     }
   };
+  document.querySelector(".error").textContent = media;
 }
 var searchHistory = [];
 
