@@ -160,7 +160,7 @@ var getBooks = function (genre) {
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": "7326db8357msh61c312a20e75e92p14b571jsn2c1250e73a41",
+      "X-RapidAPI-Key": "9426d3f131msh52b0d216213162fp1702d2jsn3c9d6ab0c0af",
       "X-RapidAPI-Host": "hapi-books.p.rapidapi.com",
     },
   };
