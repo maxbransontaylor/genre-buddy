@@ -14,25 +14,32 @@ body {
   background-image: url("../images/Dream.jpeg");
   background-size: cover;
   background-position: center;
-  transition-property: background;
-  transition-duration: 4s;
+  transition-property: background-image;
+  transition-duration: 2s;
   transition-timing-function: linear;
   overflow-y: scroll;
 }
 
-header h1,
-h4,
-h5 {
+header h1 {
   font-family: 'Fredoka One', sans-serif;
   mix-blend-mode: difference;
 }
 
-main {
-  flex: 1 0 auto;
-  margin: 10px;
+header h4, h5 {
+  font-family: 'Fredoka One', sans-serif;
+  opacity: 80%;
 }
 
+main {
+  flex: 1 0 auto;
+}
+li{
+  margin: 0 10px;
+}
+
+
 header {
+  overflow: hidden;
   background-size: cover;
   color: white;
   font-family: Arial, Helvetica, sans-serif
@@ -191,4 +198,11 @@ li a {
     top: -300px;
     opacity: 0
   }
+}
+
+.currently {
+  width: fit-content;
+  background-color: rgba(2, 2, 2, .5);
+  border-radius: 10px;
+  padding: 10px;
 }

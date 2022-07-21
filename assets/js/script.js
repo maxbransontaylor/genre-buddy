@@ -2,28 +2,27 @@ var genreSearchTerm = document.querySelector("#genre-display");
 
 //grabs from searchbar class assuming we will use one
 var search = function (event) {
-  var targetEl = event.target;
-  if (targetEl.matches(".btn")) {
-    var genre = document.getElementById("genre").value;
-    genre = genre.toLowerCase();
-    // getMovies(genre); -- now being called in getGames
-    getGames(genre);
-    // getBooks(genre);
-    genreSearchTerm.textContent = genre;
-    document.getElementById("genre").value = "";
-  }
+  event.preventDefault();
+
+  var genre = document.getElementById("genre").value;
+  genre = genre.toLowerCase();
+  // getMovies(genre); -- now being called in getGames
+  getGames(genre);
+  getBooks(genre);
+  genreSearchTerm.textContent = genre;
+  document.getElementById("genre").value = "";
 };
 
 //submit search when enter key is hit
 //it works its just slow to load
-document.getElementById("genre").addEventListener("keyup", function (event) {
-  event.preventDefault;
-  if (event.keyCode === 13) {
-    document.getElementById("btn").click();
-  }
-});
+// document.getElementById("genre").addEventListener("keyup", function (event) {
+//   event.preventDefault;
+//   if (event.keyCode === 13) {
+//     document.getElementById("btn").click();
+//   }
+// });
 // //grabs from button class when user inputs genre of choice
-document.querySelector(".input-field").addEventListener("click", search);
+document.querySelector("#search-form").addEventListener("submit", search);
 
 //format dates for RAWG url
 //only takes YYYY-MM-DD
@@ -122,7 +121,7 @@ var displayGames = function (results) {
   orderedListEl.setAttribute("id", "listOfGames");
   var div = document.getElementById("gameList");
   div.appendChild(orderedListEl);
-  var count = 9;
+  var count = 10;
   outer: for (var i = 0; i < count; i++) {
     //checks for nsfw tags before displaying games
     for (var q = 0; q < results[i].tags.length; q++) {
@@ -161,7 +160,7 @@ var getBooks = function (genre) {
   const options = {
     method: "GET",
     headers: {
-      "X-RapidAPI-Key": "7326db8357msh61c312a20e75e92p14b571jsn2c1250e73a41",
+      "X-RapidAPI-Key": "9426d3f131msh52b0d216213162fp1702d2jsn3c9d6ab0c0af",
       "X-RapidAPI-Host": "hapi-books.p.rapidapi.com",
     },
   };
@@ -410,6 +409,6 @@ var backgroundTransition = function () {
       "url('./assets/images/" + urls[index] + "')";
 
     index++;
-  }, 30000);
+  }, 20000);
 };
 backgroundTransition();

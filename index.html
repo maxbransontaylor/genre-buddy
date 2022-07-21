@@ -27,25 +27,25 @@
       <div class="row">
         <div class="col s12 m6">
           <h1>Genre Buddy</h1>
-          <h4>Currently Displaying:</h4>
-          <h5 id="genre-display"></h5>
         </div>
         <div class="input-field col s12 m6">
           <h5>What genre do you like?</h5>
-          <input
-            placeholder="ex: Horror, Fantasy, Action ..."
-            id="genre"
-            type="text"
-            class="validate"
-          />
-          <button
-            class="btn waves-effect waves-light"
-            type="submit"
-            name="action"
-          >
-            Search
-            <i class="material-icons right">send</i>
-          </button>
+          <form id="search-form">
+            <input
+              placeholder="ex: Horror, Fantasy, Action ..."
+              id="genre"
+              type="text"
+              class="validate"
+            />
+            <button
+              class="btn waves-effect waves-light"
+              type="submit"
+              name="action"
+            >
+              Search
+              <i class="material-icons right">send</i>
+            </button>
+          </form>
         </div>
         <div class="col s12 m6 right" id="search-history">
           <div class="row">
@@ -54,6 +54,10 @@
             </div>
             <div class="col s8" id="history-button"></div>
           </div>
+        </div>
+        <div class="currently col s12 m6 left">
+          <h4>Currently Displaying: <span id="genre-display"></span></h4>
+          <!-- <h5 id="genre-display"></h5> -->
         </div>
       </div>
     </header>
