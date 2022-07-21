@@ -2,28 +2,27 @@ var genreSearchTerm = document.querySelector("#genre-display");
 
 //grabs from searchbar class assuming we will use one
 var search = function (event) {
-  var targetEl = event.target;
-  if (targetEl.matches(".btn")) {
-    var genre = document.getElementById("genre").value;
-    genre = genre.toLowerCase();
-    // getMovies(genre); -- now being called in getGames
-    getGames(genre);
-    // getBooks(genre);
-    genreSearchTerm.textContent = genre;
-    document.getElementById("genre").value = "";
-  }
+  event.preventDefault();
+
+  var genre = document.getElementById("genre").value;
+  genre = genre.toLowerCase();
+  // getMovies(genre); -- now being called in getGames
+  getGames(genre);
+  getBooks(genre);
+  genreSearchTerm.textContent = genre;
+  document.getElementById("genre").value = "";
 };
 
 //submit search when enter key is hit
 //it works its just slow to load
-document.getElementById("genre").addEventListener("keyup", function (event) {
-  event.preventDefault;
-  if (event.keyCode === 13) {
-    document.getElementById("btn").click();
-  }
-});
+// document.getElementById("genre").addEventListener("keyup", function (event) {
+//   event.preventDefault;
+//   if (event.keyCode === 13) {
+//     document.getElementById("btn").click();
+//   }
+// });
 // //grabs from button class when user inputs genre of choice
-document.querySelector(".input-field").addEventListener("click", search);
+document.querySelector("#search-form").addEventListener("submit", search);
 
 //format dates for RAWG url
 //only takes YYYY-MM-DD
@@ -122,7 +121,7 @@ var displayGames = function (results) {
   orderedListEl.setAttribute("id", "listOfGames");
   var div = document.getElementById("gameList");
   div.appendChild(orderedListEl);
-  var count = 9;
+  var count = 10;
   outer: for (var i = 0; i < count; i++) {
     //checks for nsfw tags before displaying games
     for (var q = 0; q < results[i].tags.length; q++) {
@@ -410,6 +409,6 @@ var backgroundTransition = function () {
       "url('./assets/images/" + urls[index] + "')";
 
     index++;
-  }, 30000);
+  }, 20000);
 };
 backgroundTransition();

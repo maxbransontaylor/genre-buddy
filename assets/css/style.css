@@ -14,8 +14,8 @@ body {
   background-image: url("../images/Dream.jpeg");
   background-size: cover;
   background-position: center;
-  transition-property: background;
-  transition-duration: 4s;
+  transition-property: background-image;
+  transition-duration: 2s;
   transition-timing-function: linear;
   overflow-y: scroll;
 }
