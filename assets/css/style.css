@@ -1,3 +1,11 @@
+/* * {
+  overflow: auto;
+} */
+
+/* .search-results {
+  margin-right: 10px;
+  margin-left: 10px;
+} */
 
 body {
   display: flex;
@@ -10,14 +18,16 @@ body {
   transition-duration: 4s;
   transition-timing-function: linear;
   overflow-y: scroll;
-
 }
 
-header h1,
-h4,
-h5 {
+header h1 {
   font-family: 'Fredoka One', sans-serif;
   mix-blend-mode: difference;
+}
+
+header h4, h5 {
+  font-family: 'Fredoka One', sans-serif;
+  opacity: 80%;
 }
 
 main {
@@ -188,4 +198,11 @@ li a {
     top: -300px;
     opacity: 0
   }
+}
+
+.currently {
+  width: fit-content;
+  background-color: rgba(2, 2, 2, .5);
+  border-radius: 10px;
+  padding: 10px;
 }
